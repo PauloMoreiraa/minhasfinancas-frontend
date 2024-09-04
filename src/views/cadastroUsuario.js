@@ -45,8 +45,6 @@ class CadastroUsuario extends React.Component{
                     </div>
                 </div>
             </Card>
-          
-            
         )
     }
 }
