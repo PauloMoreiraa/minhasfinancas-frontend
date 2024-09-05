@@ -2,27 +2,31 @@ import React from "react";
 import Card from '../components/card';
 import FormGroup from "../components/form-group";
 import { withRouter } from 'react-router-dom'
-import axios from "axios";
+import localStorageService from "../app/service/localstorageService";
+import UsuarioService from "../app/service/usuarioService";
+import { mensagemErro } from '../components/toastr'
 
 class Login extends React.Component{
     
 state = {
     email: '',
-    senha: '',
-    mensagemErro: null
+    senha: ''
 }
 
-entrar = async () => {
-    const response = await axios
-    .post('http://localhost:8080/api/usuarios/autenticar', {
+constructor(){
+    super();
+    this.service = new UsuarioService();
+}
+
+entrar = () => {
+    this.service.autenticar({
         email: this.state.email,
         senha: this.state.senha
     }).then( response => {
-        localStorage.setItem('_usuario_logado', JSON.stringify(response.data))
-
-        this.props.history.push("/home")
+        localStorageService.adicionarItem('_usuario_logado', response.data)
+        this.props.history.push('/home')
     }).catch(erro => {
-        this.setState({mensagemErro: erro.response.data})
+        mensagemErro(erro.response.data)
     })
 }
 prepareCadastrar = () => {
@@ -35,11 +39,6 @@ prepareCadastrar = () => {
                 <div className="col-md-6" style={{ position: 'relative', left: '300px'}}>
                     <div className="bs-docs-section">
                         <Card title="Login">
-                            <div className="row">
-                                <span>
-                                    {this.state.mensagemErro}
-                                </span>
-                            </div>
                             <div className="row">
                                 <div className="row-lg-12">
                                     <div className="bs-component">
