@@ -23,6 +23,14 @@ export default class LancamentoService extends ApiService{
         ]
     }
 
+    obterPorId(id){
+        return this.get(`/${id}`)
+    }
+
+    atualizar(lancamento){
+        return this.put(`/${lancamento.id}`, lancamento)
+    }
+
     obterListaTipos(){
         return [
             {label: 'Selecione...', value: ''},
