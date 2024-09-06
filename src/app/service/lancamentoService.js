@@ -51,7 +51,11 @@ export default class LancamentoService extends ApiService{
             params = `${params}&descricao=${lancamentoFiltro.descricao}`
         }
 
-
         return this.get(params)
     }
+
+    deletar(id){
+        return this.delete(`/${id}`)
+    }
+
 }
