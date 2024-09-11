@@ -36,7 +36,7 @@ class CadastroUsuario extends React.Component{
 
         this.service.salvar(usuario)
             .then(response =>{
-                mensagemSucesso('Usuário cadastrado com suceeso! Faça o login para acessar o sistema.')
+                mensagemSucesso('Usuário cadastrado com sucesso! Faça o login para acessar o sistema.')
                 this.props.history.push('/login')
             }).catch(error => {
                 mensagemErro(error.response.data)
@@ -51,10 +51,10 @@ class CadastroUsuario extends React.Component{
         return(
             <Card title="Cadastro de Usuário">
                 <div className="row">
-                    <div className="row-lg-12">
+                    <div className="col-lg-12">
                         <div className="bs-component">
                             <FormGroup label="Nome: *" htmlFor="inputNome">
-                                <input type="text" className="form-control" id="inputNome" name="nome" onChange={e => this.setState({nome: e.target.value})}/>
+                                <input type="text" className="form-control" id="inputNome" name="nome" onChange={e => this.setState({nome: e.target.value})} />
                             </FormGroup>
                             <FormGroup label="Email: *" htmlFor="inputEmail">
                                 <input type="email" className="form-control" id="inputEmail" name="email" onChange={e => this.setState({email: e.target.value})}/>
