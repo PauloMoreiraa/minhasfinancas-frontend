@@ -16,7 +16,6 @@ class UsuarioService extends ApiService{
 
     salvar(usuario){
         return this.post('', usuario);
-
     }
 
     validar(usuario){
