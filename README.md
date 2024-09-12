@@ -1,12 +1,12 @@
-# Projeto Minhas Finanças - Frontend (minhas-financas-app)
+# 💸 Projeto Minhas Finanças - Frontend (minhas-financas-app) 
 
-## Descrição
+## 📝 Descrição
 
 O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que oferece uma interface amigável e intuitiva para gerenciar suas finanças pessoais. Este front-end interage com a Minhas Finanças API para permitir o controle detalhado de ganhos e gastos, proporcionando uma experiência fluida e dinâmica para o usuário.
 
-[Projeto Backend](https://dev.azure.com/muralisti/Programa%20de%20Est%C3%A1gio%20da%20Muralis/_git/pem-paulo-henrique-front?path=%2F&version=GBdevelop&_a=contents)
+🌐 [Projeto Backend](https://dev.azure.com/muralisti/Programa%20de%20Est%C3%A1gio%20da%20Muralis/_git/pem-paulo-henrique-front?path=%2F&version=GBdevelop&_a=contents)
 
-## Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
 - React 16.10.1
 - Axios 0.19.0
@@ -17,11 +17,11 @@ O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que ofer
 - Toastr 2.1.4
 - Node.js 10.24.1
 
-## Pré-requisitos
+## 📄 Pré-requisitos
 
 - Node.js 10.24.1
 
-## Instalação
+## 🔧 Instalação
 
 1. **Clone o repositório:**
 
@@ -69,7 +69,7 @@ O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que ofer
 
    O aplicativo estará disponível em `http://localhost:3000`.
 
-## Estrutura do Projeto
+## 🗃️ Estrutura do Projeto
 ```
 my-app/
 ├── package.json
