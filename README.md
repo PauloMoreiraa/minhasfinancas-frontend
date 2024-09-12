@@ -70,7 +70,7 @@ O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que ofer
    O aplicativo estará disponível em `http://localhost:3000`.
 
 ## Estrutura do Projeto
-
+```
 my-app/
 ├── package.json
 ├── README.md
@@ -110,6 +110,7 @@ my-app/
             ├── cadastro-lancamentos.js
             ├── consulta-lancamentos.js
             └── lancamentosTable.js
+```
 
 ## `public/`
 - **Propósito**: Contém arquivos estáticos que são servidos diretamente pelo servidor. Esses arquivos não são processados pelo Webpack e incluem o HTML principal e recursos como ícones e manifestos.
