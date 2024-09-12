@@ -32,7 +32,7 @@ class UsuarioService extends ApiService{
 
         if(!usuario.senha || !usuario.senhaRepeticao){
             erros.push('Digite a senha 2x.');
-        }else if(usuario.senha !== usuario.senha ){
+        }else if(usuario.senhaRepeticao !== usuario.senha ){
             erros.push('As senhas não correspondem.');
         }
 
