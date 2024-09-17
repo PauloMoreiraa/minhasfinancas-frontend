@@ -1,0 +1,40 @@
+.btn-tamanho{
+    width: 50%;
+    display: flex!important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    border-radius: var(--border-r-3)!important;
+    transition: .3s!important;
+}
+
+.btns{
+    display: flex;
+    background-color: transparent;
+}
+
+.btn-primeiro{
+    background-color: var(--azul-1)!important;
+    border: 1px solid var(--azul-1)!important;
+    color: #fff!important;
+}
+
+.btn-primeiro:hover{
+    background-color: transparent!important;
+    color: var(--azul-1)!important;
+}
+
+.btn-segundo{
+    background-color: var(--branco-azulado)!important;
+    border: 1px solid var(--branco-azulado)!important;
+    color: var(--azul-1)!important;
+}
+.btn-segundo:hover{
+    border: 1px solid var(--azul-1)!important;
+    background-color: transparent!important;
+}
+
+/*tira borda colorida ao clicar*/
+.btn-primeiro:focus, .btn-segundo:focus{
+    box-shadow: none!important;
+}

@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import '../css/landingPage.css'
 
 
 class LandingPage extends React.Component{
@@ -10,14 +11,13 @@ class LandingPage extends React.Component{
 
     render(){
         return(
-            <div className="container text-center">
-                <h2>Bem Vindo(a) ao sistema Minhas Finanças</h2>
-                <p>Este é o seu sistema para controle de finanças pessoais, clique no botão abaixo para acessar o sistema:</p><br/><br/>
-                <div className="offset-md-4 col-md-4">
-                    <button style={{width: '100%'}} className="btn btn-success" onClick={this.goToHomePage}>
-                        <i className="pi pi-sign-in"></i> Acessar
-                    </button>
-                </div>
+            <div className="centralizado">
+                <span className="bem-vindo">Bem Vindo(a) ao sistema </span>
+                <h1><span className="destaque">Minhas Finanças</span></h1>
+                <p>Este é o seu sistema para controle de finanças pessoais, clique no botão abaixo para acessar o sistema.</p>
+                <button style={{width: '100%'}} className="btn-azul" onClick={this.goToHomePage}>
+                    <span className="acessar">Acessar</span>&nbsp;<i className="pi pi-arrow-right"></i>
+                </button>
             </div>
         )
     }

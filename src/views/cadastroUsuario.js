@@ -51,7 +51,7 @@ class CadastroUsuario extends React.Component{
         return(
             <Card title="Cadastro de Usuário">
                 <div className="row">
-                    <div className="col-lg-12">
+                    <div className="col-lg-4">
                         <div className="bs-component">
                             <FormGroup label="Nome: *" htmlFor="inputNome">
                                 <input type="text" className="form-control" id="inputNome" name="nome" onChange={e => this.setState({nome: e.target.value})} />
@@ -65,8 +65,10 @@ class CadastroUsuario extends React.Component{
                             <FormGroup label="Repita a Senha: *" htmlFor="inputRepitaSenha">
                                 <input type="password" className="form-control" id="inputRepitaSenha" name="senha" onChange={e => this.setState({senhaRepeticao: e.target.value})}/>
                             </FormGroup>
-                            <button onClick={this.cadastrar} type="button" className="btn btn-success"><i className="pi pi-save"></i> Salvar</button>
-                            <button onClick={this.cancelar} type="button" className="btn btn-danger"><i className="pi pi-times"></i> Cancelar</button>
+                            <div className="btns">
+                            <button onClick={this.cadastrar} type="button" className="btn btn-tamanho btn-primeiro btn-success"> Salvar&nbsp;<i className="pi pi-save"></i></button>
+                            <button onClick={this.cancelar} type="button" className="btn btn-tamanho btn-danger btn-segundo">Cancelar&nbsp;<i className="pi pi-times"></i> </button>
+                            </div>
                         </div>
                     </div>
                 </div>

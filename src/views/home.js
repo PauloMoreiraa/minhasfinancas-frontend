@@ -28,7 +28,7 @@ class Home extends React.Component{
     render(){
         return(
             <div className="jumbotron">
-                <h1 className="display-3">Bem Vindo(a)!</h1>
+                <h1 className="bem-vindo">Bem Vindo(a)!</h1>
                 <p className="lead">Esse é o seu sistema de finanças.</p>
                 <p className="lead">Seu saldo para o mês atual é de R${this.state.saldo}</p>
                 <hr className="my-4" />

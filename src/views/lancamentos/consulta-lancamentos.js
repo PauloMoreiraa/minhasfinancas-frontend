@@ -122,7 +122,7 @@ class ConsultaLancamentos extends React.Component{
                     <div className="col-md-6">
                         <div className="bs-component">
                             <FormGroup htmlFor="inputAno" label="Ano: *">
-                                <input onChange={e => this.setState({ano: e.target.value})} value={this.state.ano} type="text" className="form-control" id="inputAno" placeholder="Digite o Ano" />
+                                <input onChange={e => this.setState({ano: e.target.value})} value={this.state.ano} type="number" className="form-control" id="inputAno" placeholder="Digite o Ano" />
                             </FormGroup>
                             <FormGroup htmlFor="inputMes" label="Mês: ">
                                 <SelectMenu onChange={e => this.setState({mes: e.target.value})} value={this.state.mes} id="inputMes" className="form-control" lista={meses} />

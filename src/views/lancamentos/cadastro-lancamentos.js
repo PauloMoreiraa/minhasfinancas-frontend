@@ -39,7 +39,6 @@ class CadastroLancamentos extends React.Component{
                         messages.mensagemErro(erros.response.data)
                     })
         }
-        // console.log(params)
     }
 
     submit = () => {
@@ -103,7 +102,7 @@ class CadastroLancamentos extends React.Component{
                 <div className="row">
                     <div className="col-md-6">
                         <FormGroup id="inputAno" label="Ano: *">
-                            <input id="inputAno" type="text" className="form-control" name="ano" value={this.state.ano} onChange={this.handleChange} />
+                            <input id="inputAno" type="number" className="form-control" name="ano" value={this.state.ano} onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-6">
@@ -115,7 +114,7 @@ class CadastroLancamentos extends React.Component{
                 <div className="row">
                     <div className="col-md-4">
                         <FormGroup id="inputValor" label="Valor: *">
-                            <input id="inputValor" type="text" className="form-control" name="valor" value={this.state.valor} onChange={this.handleChange} />
+                            <input id="inputValor" type="number" className="form-control" name="valor" value={this.state.valor} onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">

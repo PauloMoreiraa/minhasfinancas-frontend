@@ -6,6 +6,7 @@ import localStorageService from "../app/service/localstorageService";
 import UsuarioService from "../app/service/usuarioService";
 import { mensagemErro } from '../components/toastr'
 import { AuthContext } from "../main/provedorAutenticacao";
+import "../css/login.css"
 
 class Login extends React.Component{
     
@@ -38,7 +39,7 @@ prepareCadastrar = () => {
     render(){
         return(
             <div className="row">
-                <div className="col-md-6 offset-md-3">
+                <div className="col-md-5 offset-md-4">
                     <div className="bs-docs-section">
                         <Card title="Login">
                             <div className="row">
@@ -51,8 +52,10 @@ prepareCadastrar = () => {
                                             <FormGroup label="Senha: *" htmlFor="exampleInputPassword1">
                                                 <input type="password" value={this.state.senha} onChange={e => this.setState({senha: e.target.value})} className="form-control" id="exampleInputPassword1" placeholder="Digite a Senha" />
                                             </FormGroup>
-                                            <button onClick={this.entrar} type="button" className="btn btn-success"><i className="pi pi-sign-in"></i> Entrar</button>
-                                            <button onClick={this.prepareCadastrar} type="button" className="btn btn-danger"><i className="pi pi-plus"></i> Cadastrar</button>
+                                            <div className="btns">
+                                                <button onClick={this.entrar} type="button" className="btn btn-primeiro btn-tamanho btn-success">Entrar &nbsp;<i className="pi pi-sign-in"></i> </button>
+                                                <button onClick={this.prepareCadastrar} type="button" className="btn btn-segundo btn-tamanho btn-danger">Cadastrar &nbsp;<i className="pi pi-plus"></i> </button>
+                                            </div>                                            
                                         </fieldset>
                                     </div>
                                 </div>
