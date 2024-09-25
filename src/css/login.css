@@ -20,8 +20,7 @@
 }
 
 .btn-primeiro:hover{
-    background-color: transparent!important;
-    color: var(--azul-1)!important;
+    opacity: .8;
 }
 
 .btn-segundo{
@@ -30,11 +29,14 @@
     color: var(--azul-1)!important;
 }
 .btn-segundo:hover{
-    border: 1px solid var(--azul-1)!important;
-    background-color: transparent!important;
+   opacity: .8;
 }
 
 /*tira borda colorida ao clicar*/
 .btn-primeiro:focus, .btn-segundo:focus{
     box-shadow: none!important;
+}
+
+.fixo{
+    max-width: 140px;
 }

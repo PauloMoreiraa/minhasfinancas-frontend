@@ -21,3 +21,33 @@ body{font-family: 'Poppins', sans-serif; padding-top:120px}pre{background:#f7f7f
     width: 60%!important;
 
 }
+
+.btn-home{
+    padding: 10px 20px;
+    margin-right: 3px;
+    transition: .4s;
+    border-radius: var(--border-r-3);
+    font-weight: bolder;
+}
+
+.btn-home:hover{
+    opacity: .8;
+    text-decoration: none;
+}
+
+.btn-home-primeiro{
+    background-color: var(--azul-1);
+    color: var(--branco-azulado);
+}
+
+.btn-home-primeiro:hover{
+    color: var(--branco-azulado);
+}
+
+.btn-home-segundo{
+    background-color: var(--azul-2);
+    color: var(--branco-azulado);
+}
+.btn-home-segundo:hover{
+    color: var(--branco-azulado);
+}

@@ -1,7 +1,15 @@
 import React from "react";
-import currencyFormatter from 'currency-formatter'
+import currencyFormatter from 'currency-formatter';
+import "../../css/login.css"
+
 
 export default props => {
+
+    //meses
+    const nomesMeses = [
+        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+    ];
 
     const rows = props.lancamentos.map(lancamento => {
         return(
@@ -9,7 +17,7 @@ export default props => {
                 <td>{lancamento.descricao}</td>
                 <td>{currencyFormatter.format(lancamento.valor, {locale: 'pt-BR'})}</td>
                 <td>{lancamento.tipo}</td>
-                <td>{lancamento.mes}</td>
+                <td>{nomesMeses[lancamento.mes - 1]}</td>
                 <td>{lancamento.status}</td>
                 <td>
                     <button title="Efetivar" 

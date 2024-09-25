@@ -133,8 +133,10 @@ class ConsultaLancamentos extends React.Component{
                             <FormGroup htmlFor="inputTipo" label="Tipo de Lançamento: ">
                                 <SelectMenu onChange={e => this.setState({tipo: e.target.value})} value={this.state.tipo} id="inputTipo" className="form-control" lista={tipos} />
                             </FormGroup>
-                            <button onClick={this.buscar} type="button" className="btn btn-success"><i className="pi pi-search"></i>&nbsp;Buscar</button>
-                            <button onClick={this.preparaFormularioCadastro} type="button" className="btn btn-danger"><i className="pi pi-plus"></i>&nbsp;Cadastrar</button>
+                            <div className="btns">
+                                <button onClick={this.buscar} type="button" className="btn fixo btn-primeiro btn-tamanho btn-success">Buscar&nbsp;<i className="pi pi-search"></i></button>
+                                <button onClick={this.preparaFormularioCadastro} type="button" className="btn fixo btn-segundo btn-tamanho btn-danger">Cadastrar&nbsp;<i className="pi pi-plus"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>

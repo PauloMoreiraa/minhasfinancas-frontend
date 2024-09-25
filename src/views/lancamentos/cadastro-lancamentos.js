@@ -130,16 +130,19 @@ class CadastroLancamentos extends React.Component{
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        {this.state.atualizando ? (
-                            <button onClick={this.atualizar} className="btn btn-primary"><i className="pi pi-refresh"></i>Atualizar</button>
-                        ) : (
-                            <button onClick={this.submit} className="btn btn-success"><i className="pi pi-save"></i> Salvar</button>
-                        )}
-                        
-                        
-                        <button onClick={e =>
-                this.props.history.push('/consulta-lancamentos')} className="btn btn-danger"><i className="pi pi-times"></i> Cancelar</button>
+                        <div className="btns">
+                            {this.state.atualizando ? (
+                                <button onClick={this.atualizar} className="btn fixo btn-primeiro btn-tamanho btn-danger">Atualizar&nbsp;<i className="pi pi-refresh"></i></button>
+                            ) : (
+                                <button onClick={this.submit} className="btn fixo btn-primeiro btn-tamanho btn-success">Salvar&nbsp;<i className="pi pi-save"></i></button>
+                            )}
+                            
+                            
+                            <button onClick={e =>
+                    this.props.history.push('/consulta-lancamentos')} className="btn fixo btn-segundo btn-tamanho btn-danger">Cancelar&nbsp;<i className="pi pi-times"></i></button>
+                        </div>
                     </div>
+                        
                 </div>
             </Card>
         )

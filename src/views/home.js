@@ -2,6 +2,7 @@ import React from "react";
 import UsuarioService from "../app/service/usuarioService";
 import { AuthContext } from "../main/provedorAutenticacao";
 
+
 class Home extends React.Component{
 
     state = {
@@ -34,8 +35,8 @@ class Home extends React.Component{
                 <hr className="my-4" />
                 <p>Essa é sua área administrativa, utilize um dos menus ou botões abaixo para navegar pelo sistema.</p>
                 <p className="lead">
-                <a className="btn btn-primary btn-lg" href="#/cadastro-usuarios" role="button"><i className="pi pi-users"></i> Cadastrar Usuário</a>
-                <a className="btn btn-success btn-lg" href="#/cadastro-lancamentos" role="button"><i className="pi pi-money-bill"></i> Cadastrar Lançamento</a>
+                <a className="btn-home btn-home-primeiro" href="#/cadastro-usuarios" role="button"><i className="pi pi-users"></i> Cadastrar Usuário</a>
+                <a className="btn-home btn-home-segundo" href="#/cadastro-lancamentos" role="button"><i className="pi pi-money-bill"></i> Cadastrar Lançamento</a>
                 </p>
             </div>
         )
