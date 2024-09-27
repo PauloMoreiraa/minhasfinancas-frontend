@@ -9,6 +9,11 @@ class Home extends React.Component{
         saldo:0
     }
 
+    formatarSaldo(valor) {
+        // Formata o saldo para o formato BRL (R$)
+        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
     constructor(){
         super();
         this.UsuarioService = new UsuarioService();
@@ -31,7 +36,7 @@ class Home extends React.Component{
             <div className="jumbotron">
                 <h1 className="bem-vindo">Bem Vindo(a)!</h1>
                 <p className="lead">Esse é o seu sistema de finanças.</p>
-                <p className="lead">Seu saldo para o mês atual é de R${this.state.saldo}</p>
+                <p className="lead">Seu saldo para o mês atual é de {this.formatarSaldo(this.state.saldo)}</p>
                 <hr className="my-4" />
                 <p>Essa é sua área administrativa, utilize um dos menus ou botões abaixo para navegar pelo sistema.</p>
                 <p className="lead">
