@@ -6,6 +6,7 @@ export default class LancamentoService extends ApiService{
         super('/api/lancamentos')
     }
 
+
     obterListaMeses(){
         return [
             {label: 'Selecione...', value: ''},
@@ -23,6 +24,8 @@ export default class LancamentoService extends ApiService{
             {label: 'Dezembro', value: 12},
         ]
     }
+
+    
 
     obterPorId(id){
         return this.get(`/${id}`)
@@ -68,7 +71,10 @@ export default class LancamentoService extends ApiService{
         if(lancamentoFiltro.descricao){
             params = `${params}&descricao=${lancamentoFiltro.descricao}`
         }
-
+        if (lancamentoFiltro.categoriaId) {
+            params = `${params}&categoriaId=${lancamentoFiltro.categoriaId}`;
+        }
+        
         return this.get(params)
     }
 

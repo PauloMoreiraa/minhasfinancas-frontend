@@ -49,30 +49,73 @@ class CadastroUsuario extends React.Component{
 
     render(){
         return(
-            <Card title="Cadastro de Usuário">
-                <div className="row">
-                    <div className="col-lg-4">
+            <div className="row justify-content-center">  {/* Centraliza a row */}
+                <div className="col-md-6">  {/* Aumenta a largura da coluna para 6 em vez de 5 e elimina offset */}
+                    <Card title="Cadastro de Usuário">
                         <div className="bs-component">
                             <FormGroup label="Nome: *" htmlFor="inputNome">
-                                <input type="text" className="form-control" id="inputNome" name="nome" onChange={e => this.setState({nome: e.target.value})} />
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="inputNome" 
+                                    name="nome" 
+                                    onChange={e => this.setState({nome: e.target.value})} 
+                                />
                             </FormGroup>
                             <FormGroup label="Email: *" htmlFor="inputEmail">
-                                <input type="email" className="form-control" id="inputEmail" name="email" onChange={e => this.setState({email: e.target.value})}/>
+                                <input 
+                                    type="email" 
+                                    className="form-control" 
+                                    id="inputEmail" 
+                                    name="email" 
+                                    onChange={e => this.setState({email: e.target.value})} 
+                                />
                             </FormGroup>
                             <FormGroup label="Senha: *" htmlFor="inputSenha">
-                                <input type="password" className="form-control" id="inputSenha" name="senha" onChange={e => this.setState({senha: e.target.value})}/>
+                                <input 
+                                    type="password" 
+                                    className="form-control" 
+                                    id="inputSenha" 
+                                    name="senha" 
+                                    onChange={e => this.setState({senha: e.target.value})} 
+                                />
                             </FormGroup>
                             <FormGroup label="Repita a Senha: *" htmlFor="inputRepitaSenha">
-                                <input type="password" className="form-control" id="inputRepitaSenha" name="senha" onChange={e => this.setState({senhaRepeticao: e.target.value})}/>
+                                <input 
+                                    type="password" 
+                                    className="form-control" 
+                                    id="inputRepitaSenha" 
+                                    name="senha" 
+                                    onChange={e => this.setState({senhaRepeticao: e.target.value})} 
+                                />
                             </FormGroup>
-                            <div className="btns">
-                            <button onClick={this.cadastrar} type="button" className="btn btn-tamanho btn-primeiro btn-success fixo"> Salvar&nbsp;<i className="pi pi-save"></i></button>
-                            <button onClick={this.cancelar} type="button" className="btn btn-tamanho btn-danger btn-segundo fixo">Cancelar&nbsp;<i className="pi pi-times"></i> </button>
+                            <div className="d-flex justify-content-between mt-3">  {/* Espaço acima dos botões */}
+                                <span className="text-secondary" style={{ fontSize: "12px" }}>
+                                    *Preenchimento obrigatório
+                                </span>
+                                <div className="d-flex">
+                                    <button 
+                                        onClick={this.cancelar} 
+                                        style={{ minWidth: "100px" }} 
+                                        type="button" 
+                                        className="btn gap-1 btn-dark mx-1 d-flex justify-content-center align-items-center"
+                                    >
+                                        <i className="pi pi-times"></i>Cancelar 
+                                    </button>
+                                    <button 
+                                        onClick={this.cadastrar} 
+                                        style={{ minWidth: "100px" }} 
+                                        type="button" 
+                                        className="btn gap-1 btn-info d-flex justify-content-center align-items-center"
+                                    > 
+                                        <i className="pi pi-save"></i>Salvar
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </Card>
                 </div>
-            </Card>
+            </div>
         )
     }
 }

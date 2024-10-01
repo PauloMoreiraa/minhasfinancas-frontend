@@ -1,6 +1,6 @@
 import React from "react";
 import currencyFormatter from 'currency-formatter';
-import "../../css/login.css"
+
 
 
 export default props => {
@@ -19,6 +19,7 @@ export default props => {
                 <td>{lancamento.tipo}</td>
                 <td>{nomesMeses[lancamento.mes - 1]}</td>
                 <td>{lancamento.status}</td>
+                <td>{lancamento.categoria ? lancamento.categoria.descricao : 'Sem Categoria'}</td>
                 <td>
                     <button title="Efetivar" 
                             disabled={lancamento.status !== 'PENDENTE'}
@@ -29,13 +30,13 @@ export default props => {
                     </button>
                     <button title="Cancelar" 
                             disabled={lancamento.status !== 'PENDENTE'}
-                            className="btn btn-warning"
+                            className="btn mx-1 btn-warning"
                             onClick={e => props.alterarStatus(lancamento, 'CANCELADO')}
                             type="button">
                             <i className="pi pi-times"></i>
                     </button>
-                    <button title="Editar" type="button" className="btn btn-primary" onClick={e => props.editAction(lancamento.id)}><i className="pi pi-pencil"></i></button>
-                    <button title="Excluir" type="button" className="btn btn-danger" onClick={e => props.deleteAction(lancamento)}><i className="pi pi-trash"></i></button>
+                    <button title="Editar" disabled={lancamento.status == 'EFETIVADO' || lancamento.status == 'CANCELADO'} type="button" className="btn btn-primary" onClick={e => props.editAction(lancamento.id)}><i className="pi pi-pencil"></i></button>
+                    <button title="Excluir" disabled={lancamento.status == 'EFETIVADO' || lancamento.status == 'CANCELADO'} type="button" className="btn mx-1 btn-danger" onClick={e => props.deleteAction(lancamento)}><i className="pi pi-trash"></i></button>
                 </td>
             </tr>
         )
@@ -50,6 +51,7 @@ export default props => {
                     <th scope="col">Tipo</th>
                     <th scope="col">Mês</th>
                     <th scope="col">Situação</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>

@@ -4,10 +4,11 @@ import * as messages from "../../components/toastr"
 
 import Card from "../../components/card";
 import FormGroup from "../../components/form-group";
-import SelectMenu from "../../components/selectMenu"
+import SelectMenu from "../../components/selectMenu";
+import CategoriaService from "../../app/service/categoriaService";
 
-import LancamentoService from "../../app/service/lancamentoService"
-import LocalStorageService from "../../app/service/localstorageService"
+import LancamentoService from "../../app/service/lancamentoService";
+import LocalStorageService from "../../app/service/localstorageService";
 
 class CadastroLancamentos extends React.Component{
 
@@ -17,19 +18,23 @@ class CadastroLancamentos extends React.Component{
         valor: '',
         mes: '',
         ano: '',
+        categoriaId: '',
         tipo: '',
         status: '',
         usuario: null,
-        atualizando: false
+        atualizando: false,
+        categorias: []
     }
 
     constructor(){
         super();
         this.service = new LancamentoService();
+        this.categoriaService = new CategoriaService();
     }
 
     componentDidMount(){
         const params = this.props.match.params
+        this.buscarCategorias();
         if(params.id){
             this.service
                     .obterPorId(params.id)
@@ -40,6 +45,15 @@ class CadastroLancamentos extends React.Component{
                     })
         }
     }
+
+    buscarCategorias = () => {
+        this.categoriaService.obterTodasCategorias()
+            .then(response => {
+                this.setState({ categorias: response.data }); 
+            }).catch(error => {
+                messages.mensagemErro("Erro ao buscar categorias.");
+            });
+    };
 
     submit = () => {
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
@@ -67,8 +81,8 @@ class CadastroLancamentos extends React.Component{
     }
 
     atualizar = () => {
-        const {descricao, valor, mes, ano, tipo, status, id, usuario} = this.state;
-        const lancamento = {descricao, valor, mes, ano, tipo, id, usuario, status}
+        const {descricao, valor, mes, ano, tipo, status, id, usuario, categoriaId } = this.state;
+        const lancamento = {descricao, valor, mes, ano, tipo, id, usuario, status, categoriaId }
 
         this.service
             .atualizar(lancamento)
@@ -100,14 +114,29 @@ class CadastroLancamentos extends React.Component{
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <FormGroup id="inputAno" label="Ano: *">
                             <input id="inputAno" type="number" className="form-control" name="ano" value={this.state.ano} onChange={this.handleChange} />
                         </FormGroup>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                         <FormGroup id="inputMes" label="Mês: *">
                             <SelectMenu className="form-control" id="inputMes" lista={meses} name="mes" value={this.state.mes} onChange={this.handleChange} />
+                        </FormGroup>
+                    </div>
+                    <div className="col-md-4">
+                        <FormGroup id="inputCategoria" label="Categoria: *">
+                            <SelectMenu
+                                className="form-control"
+                                id="inputCategoria"
+                                lista={[
+                                    { label: "Selecione...", value: "" },
+                                    ...this.state.categorias.map(c => ({ label: c.descricao, value: c.id }))
+                                ]}
+                                name="categoriaId"
+                                value={this.state.categoriaId}
+                                onChange={this.handleChange}
+                            />
                         </FormGroup>
                     </div>
                 </div>
@@ -130,16 +159,14 @@ class CadastroLancamentos extends React.Component{
                 </div>
                 <div className="row">
                     <div className="col-md-6">
-                        <div className="btns">
-                            {this.state.atualizando ? (
-                                <button onClick={this.atualizar} className="btn fixo btn-primeiro btn-tamanho btn-danger">Atualizar&nbsp;<i className="pi pi-refresh"></i></button>
-                            ) : (
-                                <button onClick={this.submit} className="btn fixo btn-primeiro btn-tamanho btn-success">Salvar&nbsp;<i className="pi pi-save"></i></button>
-                            )}
-                            
-                            
+                        <div className="d-flex">
                             <button onClick={e =>
-                    this.props.history.push('/consulta-lancamentos')} className="btn fixo btn-segundo btn-tamanho btn-danger">Cancelar&nbsp;<i className="pi pi-times"></i></button>
+                        this.props.history.push('/consulta-lancamentos')} style={{minWidth:"100px"}} className="btn gap-1 mx-1 btn-dark d-flex justify-content-center align-items-center"><i className="pi pi-times"></i>Cancelar</button>
+                            {this.state.atualizando ? (
+                                <button onClick={this.atualizar} style={{minWidth:"100px"}} className="btn gap-1 d-flex justify-content-center align-items-center btn-info"><i className="pi pi-refresh"></i>Atualizar</button>
+                            ) : (
+                                <button onClick={this.submit} style={{minWidth:"100px"}} className="btn gap-1 d-flex justify-content-center align-items-center btn-info"><i className="pi pi-save"></i>Salvar</button>
+                            )}
                         </div>
                     </div>
                         
