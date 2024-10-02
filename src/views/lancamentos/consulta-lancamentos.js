@@ -9,6 +9,11 @@ import LancamentoService from "../../app/service/lancamentoService";
 import LocalStorageService from "../../app/service/localstorageService";
 import CategoriaService from "../../app/service/categoriaService";
 import ButtonComponent from "../../components/button";
+import ButtonModal from "../../components/buttonModal";
+import ModalCategoria from "../../components/modalCategoria";
+
+import { cadastrarCategoria } from '../../app/service/actions/categoriaActions';
+
 
 import * as messages from '../../components/toastr';
 
@@ -25,7 +30,9 @@ class ConsultaLancamentos extends React.Component {
         showConfirmDialog: false,
         lancamentoDeletar: {},
         lancamentos: [],
-        categorias: []
+        categorias: [],
+        showModal: false,
+        novaCategoria: ''
     };
 
     constructor() {
@@ -128,15 +135,62 @@ class ConsultaLancamentos extends React.Component {
             messages.mensagemErro("Não é possível efetivar um lançamento com data futura.");
         }
     };
+
+    openModal = () => {
+        this.setState({ showModal: true });
+    }
+    
+    closeModal = () => {
+        this.setState({ showModal: false, novaCategoria: '' });
+    }
+
+    // Método para cadastrar nova categoria
+    cadastrarCategoria = async () => {
+        const { novaCategoria } = this.state;
+        await cadastrarCategoria(novaCategoria);
+        this.buscarCategorias(); // Atualiza a lista de categorias
+    };
+
+    
     
     render() {
         const meses = this.service.obterListaMeses();
         const tipos = this.service.obterListaTipos();
 
         const confirmDialogFooter = (
-            <div>
-                <Button label="Sim" icon="pi pi-check" onClick={this.deletar} />
-                <Button label="Cancelar" icon="pi pi-times" onClick={this.cancelarDelecao} className="p-button-secondary" />
+            <div className="d-flex justify-content-end align-items-end">
+                <ButtonComponent
+                    onClick={this.cancelarDelecao}
+                    type="button"
+                    label="Cancelar"
+                    icon="pi pi-times"
+                    variant="dark" // Use o variant que preferir
+                />
+                <ButtonComponent
+                    onClick={this.deletar}
+                    type="button"
+                    label="Sim"
+                    icon="pi pi-check"
+                    variant="info" // Use o variant que preferir
+                />
+            </div>
+        );
+
+        //modal footer para a categoria
+        const modalFooter = (
+            <div className="d-flex justify-content-end align-items-end">
+                <ButtonComponent 
+                    onClick={this.closeModal} 
+                    label="Cancelar" 
+                    icon="pi pi-times" 
+                    variant="dark"
+                />
+                <ButtonComponent 
+                    onClick={this.cadastrarCategoria} 
+                    label="Confirmar" 
+                    icon="pi pi-check" 
+                    variant="info"
+                />
             </div>
         );
 
@@ -170,7 +224,6 @@ class ConsultaLancamentos extends React.Component {
                                 />
                             </FormGroup>
                             <div className="d-flex gap-1">
-                                 {/* Botão "Buscar" */}
                                 <ButtonComponent
                                 onClick={this.buscar}
                                 type="button"
@@ -178,8 +231,6 @@ class ConsultaLancamentos extends React.Component {
                                 icon="pi-search"
                                 variant="success"
                                 />
-
-                                {/* Botão "Cadastrar" */}
                                 <ButtonComponent
                                 onClick={this.preparaFormularioCadastro}
                                 type="button"
@@ -187,8 +238,6 @@ class ConsultaLancamentos extends React.Component {
                                 icon="pi-plus"
                                 variant="danger"
                                 />
-
-                                {/* Botão "Exportar Dados" */}
                                 <ButtonComponent
                                 onClick={this.exportarDados}
                                 type="button"
@@ -198,6 +247,46 @@ class ConsultaLancamentos extends React.Component {
                                 />
                             </div>
                         </div>
+                    </div>
+                    <div className="col-md-6">
+                        <div className="text-center">
+                            <h3>Outras opções</h3>
+                            <hr />
+                            <div className="d-flex justify-content-center align-items-center">
+                                <ButtonModal 
+                                onClick={this.openModal} 
+                                title="Cadastrar nova categoria" 
+                                icon="pi-plus-circle" 
+                                variant="dark"
+                                >
+                                Cadastrar nova categoria
+                                </ButtonModal>
+                            </div>
+                            <hr />
+                            <div className="d-flex justify-content-center align-items-center">
+                                <ButtonModal 
+                                onClick={this.handleClick} 
+                                title="Cadastrar nova categoria" 
+                                icon="pi-upload" 
+                                variant="dark"
+                                >
+                                Realizar upload de arquivo
+                                </ButtonModal>
+                            </div>
+                            <hr />
+                            <div className="d-flex justify-content-center align-items-center">
+                                <ButtonModal 
+                                onClick={this.handleClick} 
+                                title="Cadastrar nova categoria" 
+                                icon="pi-map" 
+                                variant="dark"
+                                >
+                                Visualizar lançamentos no mapa
+                                </ButtonModal>
+                            </div>
+                            <hr />
+                        </div>
+                        
                     </div>
                 </div>
                 <br />
@@ -215,6 +304,24 @@ class ConsultaLancamentos extends React.Component {
                         </p>
                     </Dialog>
                 </div>
+
+                <ModalCategoria 
+                        header="Cadastrar Categoria" 
+                        visible={this.state.showModal} 
+                        onHide={this.closeModal} 
+                        footer={modalFooter}
+                    >
+                        <FormGroup htmlFor="novaCategoria" label="*Descrição:">
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                id="novaCategoria" 
+                                value={this.state.novaCategoria} 
+                                onChange={e => this.setState({ novaCategoria: e.target.value })} 
+                                placeholder="Digite a descrição da categoria"
+                            />
+                        </FormGroup>
+                    </ModalCategoria>
             </Card>
         )
     }

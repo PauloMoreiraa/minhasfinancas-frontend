@@ -21,3 +21,11 @@ body{font-family: 'Poppins', sans-serif; padding-top:120px}pre{background:#f7f7f
 .btn-width-2{
     width: 9.75rem;/*120px*/
 }
+
+.btn-width-2{
+    width: 9.75rem;/*156px*/
+}
+
+.btn-width-3{
+    width: 17.5rem;/*280px*/
+}
