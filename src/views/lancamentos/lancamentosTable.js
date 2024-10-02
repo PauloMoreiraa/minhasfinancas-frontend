@@ -1,5 +1,7 @@
 import React from "react";
 import currencyFormatter from 'currency-formatter';
+import ButtonIcon from "../../components/buttonIcon";
+import 'primeicons/primeicons.css';
 
 
 
@@ -20,23 +22,42 @@ export default props => {
                 <td>{nomesMeses[lancamento.mes - 1]}</td>
                 <td>{lancamento.status}</td>
                 <td>{lancamento.categoria ? lancamento.categoria.descricao : 'Sem Categoria'}</td>
-                <td>
-                    <button title="Efetivar" 
-                            disabled={lancamento.status !== 'PENDENTE'}
-                            className="btn btn-success"
-                            onClick={e => props.alterarStatus(lancamento, 'EFETIVADO')}
-                            type="button">
-                            <i className="pi pi-check"></i>
-                    </button>
-                    <button title="Cancelar" 
-                            disabled={lancamento.status !== 'PENDENTE'}
-                            className="btn mx-1 btn-warning"
-                            onClick={e => props.alterarStatus(lancamento, 'CANCELADO')}
-                            type="button">
-                            <i className="pi pi-times"></i>
-                    </button>
-                    <button title="Editar" disabled={lancamento.status == 'EFETIVADO' || lancamento.status == 'CANCELADO'} type="button" className="btn btn-primary" onClick={e => props.editAction(lancamento.id)}><i className="pi pi-pencil"></i></button>
-                    <button title="Excluir" disabled={lancamento.status == 'EFETIVADO' || lancamento.status == 'CANCELADO'} type="button" className="btn mx-1 btn-danger" onClick={e => props.deleteAction(lancamento)}><i className="pi pi-trash"></i></button>
+                <td className="d-flex gap-1">
+                     {/* Botão "Efetivar" */}
+                    <ButtonIcon
+                        title="Efetivar"
+                        disabled={lancamento.status !== 'PENDENTE'}
+                        onClick={() => props.alterarStatus(lancamento, 'EFETIVADO')}
+                        variant="success"
+                        icon="pi-check"
+                    />
+
+                    {/* Botão "Cancelar" */}
+                    <ButtonIcon
+                        title="Cancelar"
+                        disabled={lancamento.status !== 'PENDENTE'}
+                        onClick={() => props.alterarStatus(lancamento, 'CANCELADO')}
+                        variant="warning"
+                        icon="pi-times"
+                    />
+
+                    {/* Botão "Editar" */}
+                    <ButtonIcon
+                        title="Editar"
+                        disabled={lancamento.status === 'EFETIVADO' || lancamento.status === 'CANCELADO'}
+                        onClick={() => props.editAction(lancamento.id)}
+                        variant="primary"
+                        icon="pi-pencil"
+                    />
+
+                    {/* Botão "Excluir" */}
+                    <ButtonIcon
+                        title="Excluir"
+                        disabled={lancamento.status === 'EFETIVADO' || lancamento.status === 'CANCELADO'}
+                        onClick={() => props.deleteAction(lancamento)}
+                        variant="danger"
+                        icon="pi-trash"
+                    />
                 </td>
             </tr>
         )

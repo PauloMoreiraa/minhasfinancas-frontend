@@ -4,6 +4,7 @@ import FormGroup from "../components/form-group";
 import {withRouter} from "react-router-dom"
 import UsuarioService from '../app/service/usuarioService'
 import {mensagemSucesso, mensagemErro } from '../components/toastr'
+import ButtonComponent from "../components/button";
 
 class CadastroUsuario extends React.Component{
 
@@ -53,7 +54,7 @@ class CadastroUsuario extends React.Component{
                 <div className="col-md-6">  {/* Aumenta a largura da coluna para 6 em vez de 5 e elimina offset */}
                     <Card title="Cadastro de Usuário">
                         <div className="bs-component">
-                            <FormGroup label="Nome: *" htmlFor="inputNome">
+                            <FormGroup label="*Nome:" htmlFor="inputNome">
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -62,7 +63,7 @@ class CadastroUsuario extends React.Component{
                                     onChange={e => this.setState({nome: e.target.value})} 
                                 />
                             </FormGroup>
-                            <FormGroup label="Email: *" htmlFor="inputEmail">
+                            <FormGroup label="*Email:" htmlFor="inputEmail">
                                 <input 
                                     type="email" 
                                     className="form-control" 
@@ -71,7 +72,7 @@ class CadastroUsuario extends React.Component{
                                     onChange={e => this.setState({email: e.target.value})} 
                                 />
                             </FormGroup>
-                            <FormGroup label="Senha: *" htmlFor="inputSenha">
+                            <FormGroup label="*Senha:" htmlFor="inputSenha">
                                 <input 
                                     type="password" 
                                     className="form-control" 
@@ -80,7 +81,7 @@ class CadastroUsuario extends React.Component{
                                     onChange={e => this.setState({senha: e.target.value})} 
                                 />
                             </FormGroup>
-                            <FormGroup label="Repita a Senha: *" htmlFor="inputRepitaSenha">
+                            <FormGroup label="*Repita a Senha:" htmlFor="inputRepitaSenha">
                                 <input 
                                     type="password" 
                                     className="form-control" 
@@ -94,22 +95,18 @@ class CadastroUsuario extends React.Component{
                                     *Preenchimento obrigatório
                                 </span>
                                 <div className="d-flex">
-                                    <button 
-                                        onClick={this.cancelar} 
-                                        style={{ minWidth: "100px" }} 
-                                        type="button" 
-                                        className="btn gap-1 btn-dark mx-1 d-flex justify-content-center align-items-center"
-                                    >
-                                        <i className="pi pi-times"></i>Cancelar 
-                                    </button>
-                                    <button 
-                                        onClick={this.cadastrar} 
-                                        style={{ minWidth: "100px" }} 
-                                        type="button" 
-                                        className="btn gap-1 btn-info d-flex justify-content-center align-items-center"
-                                    > 
-                                        <i className="pi pi-save"></i>Salvar
-                                    </button>
+                                    <ButtonComponent
+                                    onClick={this.cancelar}
+                                    label="Cancelar"
+                                    icon="pi-times"
+                                    variant="dark"
+                                    />
+                                    <ButtonComponent
+                                    onClick={this.cadastrar}
+                                    label="Salvar"
+                                    icon="pi-save"
+                                    variant="info"
+                                    />
                                 </div>
                             </div>
                         </div>

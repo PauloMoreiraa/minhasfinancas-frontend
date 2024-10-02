@@ -6,6 +6,7 @@ import Card from "../../components/card";
 import FormGroup from "../../components/form-group";
 import SelectMenu from "../../components/selectMenu";
 import CategoriaService from "../../app/service/categoriaService";
+import ButtonComponent from "../../components/button";
 
 import LancamentoService from "../../app/service/lancamentoService";
 import LocalStorageService from "../../app/service/localstorageService";
@@ -58,9 +59,9 @@ class CadastroLancamentos extends React.Component{
     submit = () => {
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
 
-        const {descricao, valor, mes, ano, tipo} = this.state;
+        const {descricao, valor, mes, ano, tipo, categoriaId} = this.state;
 
-        const lancamento = {descricao, valor, mes, ano, tipo, usuario: usuarioLogado.id}
+        const lancamento = {descricao, valor, mes, ano, tipo, usuario: usuarioLogado.id, categoriaId}
 
         try {
             this.service.validar(lancamento)
@@ -115,17 +116,17 @@ class CadastroLancamentos extends React.Component{
                 </div>
                 <div className="row">
                     <div className="col-md-4">
-                        <FormGroup id="inputAno" label="Ano: *">
+                        <FormGroup id="inputAno" label="*Ano:">
                             <input id="inputAno" type="number" className="form-control" name="ano" value={this.state.ano} onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup id="inputMes" label="Mês: *">
+                        <FormGroup id="inputMes" label="*Mês:">
                             <SelectMenu className="form-control" id="inputMes" lista={meses} name="mes" value={this.state.mes} onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup id="inputCategoria" label="Categoria: *">
+                        <FormGroup id="inputCategoria" label="Categoria:">
                             <SelectMenu
                                 className="form-control"
                                 id="inputCategoria"
@@ -142,12 +143,12 @@ class CadastroLancamentos extends React.Component{
                 </div>
                 <div className="row">
                     <div className="col-md-4">
-                        <FormGroup id="inputValor" label="Valor: *">
+                        <FormGroup id="inputValor" label="*Valor:">
                             <input id="inputValor" type="number" className="form-control" name="valor" value={this.state.valor} onChange={this.handleChange} />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
-                        <FormGroup id="inputTipo" label="Tipo: *">
+                        <FormGroup id="inputTipo" label="*Tipo:">
                            <SelectMenu className="form-control" id="inputTipo" lista={tipos} name="tipo" value={this.state.tipo} onChange={this.handleChange} />
                         </FormGroup>
                     </div>
@@ -160,16 +161,30 @@ class CadastroLancamentos extends React.Component{
                 <div className="row">
                     <div className="col-md-6">
                         <div className="d-flex">
-                            <button onClick={e =>
-                        this.props.history.push('/consulta-lancamentos')} style={{minWidth:"100px"}} className="btn gap-1 mx-1 btn-dark d-flex justify-content-center align-items-center"><i className="pi pi-times"></i>Cancelar</button>
+                            <ButtonComponent
+                            onClick={() => this.props.history.push('/consulta-lancamentos')}
+                            label="Cancelar"
+                            icon="pi-times"
+                            variant="dark"
+                            />
+
                             {this.state.atualizando ? (
-                                <button onClick={this.atualizar} style={{minWidth:"100px"}} className="btn gap-1 d-flex justify-content-center align-items-center btn-info"><i className="pi pi-refresh"></i>Atualizar</button>
+                            <ButtonComponent
+                                onClick={this.atualizar}
+                                label="Atualizar"
+                                icon="pi-refresh"
+                                variant="info"
+                            />
                             ) : (
-                                <button onClick={this.submit} style={{minWidth:"100px"}} className="btn gap-1 d-flex justify-content-center align-items-center btn-info"><i className="pi pi-save"></i>Salvar</button>
+                            <ButtonComponent
+                                onClick={this.submit}
+                                label="Salvar"
+                                icon="pi-save"
+                                variant="info"
+                            />
                             )}
                         </div>
                     </div>
-                        
                 </div>
             </Card>
         )

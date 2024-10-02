@@ -6,6 +6,7 @@ import localStorageService from "../app/service/localstorageService";
 import UsuarioService from "../app/service/usuarioService";
 import { mensagemErro } from '../components/toastr'
 import { AuthContext } from "../main/provedorAutenticacao";
+import ButtonComponent from '../components/button';
 
 
 class Login extends React.Component{
@@ -58,18 +59,20 @@ prepareCadastrar = () => {
                                                     <span style={{fontSize:"12px"}} className="text-secondary" >*Preenchimento obrigatório</span>
                                                 </div>
                                                 <div className="d-flex">
-                                                    <button style={{minWidth:"120px"}} 
-                                                        onClick={this.prepareCadastrar} 
-                                                        type="button" 
-                                                        className="btn gap-1 btn-dark mx-1 d-flex justify-content-center align-items-center">
-                                                            <i className="pi pi-plus"></i>Cadastrar
-                                                    </button>
-                                                    <button style={{minWidth:"120px"}} 
-                                                        onClick={this.entrar} 
-                                                        type="button" 
-                                                        className="btn gap-1 btn-info d-flex justify-content-center align-items-center">
-                                                            <i className="pi pi-sign-in"></i>Entrar
-                                                    </button>
+                                                    <ButtonComponent
+                                                        onClick={this.prepareCadastrar}
+                                                        type="button"
+                                                        label="Cadastrar"
+                                                        icon="pi-plus"
+                                                        variant="dark"
+                                                    />
+                                                    <ButtonComponent
+                                                        onClick={this.entrar}
+                                                        type="button"
+                                                        label="Entrar"
+                                                        icon="pi-sign-in"
+                                                        variant="info"
+                                                    />
                                                 </div>
                                             </div>
                                         </fieldset>

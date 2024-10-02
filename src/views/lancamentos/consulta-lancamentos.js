@@ -8,6 +8,7 @@ import LancamentosTable from "./lancamentosTable";
 import LancamentoService from "../../app/service/lancamentoService";
 import LocalStorageService from "../../app/service/localstorageService";
 import CategoriaService from "../../app/service/categoriaService";
+import ButtonComponent from "../../components/button";
 
 import * as messages from '../../components/toastr';
 
@@ -144,7 +145,7 @@ class ConsultaLancamentos extends React.Component {
                 <div className="row">
                     <div className="col-md-6">
                         <div className="bs-component">
-                            <FormGroup htmlFor="inputAno" label="Ano: *">
+                            <FormGroup htmlFor="inputAno" label="*Ano:">
                                 <input onChange={e => this.setState({ ano: e.target.value })} value={this.state.ano} type="number" className="form-control" id="inputAno" placeholder="Digite o Ano" />
                             </FormGroup>
                             <FormGroup htmlFor="inputMes" label="Mês: ">
@@ -168,16 +169,33 @@ class ConsultaLancamentos extends React.Component {
                                     ]} 
                                 />
                             </FormGroup>
-                            <div className="d-flex">
-                                <button onClick={this.buscar} style={{ minWidth: "160px" }} type="button" className="btn mx-1 btn-success d-flex justify-content-center align-items-center gap-1">
-                                    <i className="pi pi-search"></i>Buscar
-                                </button>
-                                <button onClick={this.preparaFormularioCadastro} style={{ minWidth: "160px" }} type="button" className="btn btn-danger d-flex justify-content-center align-items-center gap-1">
-                                    <i className="pi pi-plus"></i>Cadastrar
-                                </button>
-                                <button onClick={this} style={{ minWidth: "160px" }} type="button" className="btn mx-1 btn-info d-flex justify-content-center align-items-center gap-1">
-                                    <i className="pi pi-download"></i>Exportar Dados
-                                </button>
+                            <div className="d-flex gap-1">
+                                 {/* Botão "Buscar" */}
+                                <ButtonComponent
+                                onClick={this.buscar}
+                                type="button"
+                                label="Buscar"
+                                icon="pi-search"
+                                variant="success"
+                                />
+
+                                {/* Botão "Cadastrar" */}
+                                <ButtonComponent
+                                onClick={this.preparaFormularioCadastro}
+                                type="button"
+                                label="Cadastrar"
+                                icon="pi-plus"
+                                variant="danger"
+                                />
+
+                                {/* Botão "Exportar Dados" */}
+                                <ButtonComponent
+                                onClick={this.exportarDados}
+                                type="button"
+                                label="Exportar Dados"
+                                icon="pi-download"
+                                variant="info-2"
+                                />
                             </div>
                         </div>
                     </div>
