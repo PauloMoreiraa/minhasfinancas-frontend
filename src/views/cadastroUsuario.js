@@ -1,10 +1,11 @@
 import React from "react";
-import Card from "../components/card";
-import FormGroup from "../components/form-group";
-import {withRouter} from "react-router-dom"
-import UsuarioService from '../app/service/usuarioService'
-import {mensagemSucesso, mensagemErro } from '../components/toastr'
-import ButtonComponent from "../components/button";
+import Card from "../components/Card";
+import FormGroup from "../components/FormGroup";
+import {withRouter} from "react-router-dom";
+import UsuarioService from "../app/service/UsuarioService";
+import {mensagemSucesso, mensagemErro } from "../components/Toastr";
+import ButtonComponent from "../components/Button";
+import InputField from "../components/InputField";
 
 class CadastroUsuario extends React.Component{
 
@@ -23,74 +24,70 @@ class CadastroUsuario extends React.Component{
 
     cadastrar = () => {
 
-        const {nome, email, senha, senhaRepeticao} = this.state
+        const {nome, email, senha, senhaRepeticao} = this.state;
     
-        const usuario = {nome, email, senha, senhaRepeticao}
+        const usuario = {nome, email, senha, senhaRepeticao};
 
         try{
-            this.service.validar(usuario)
+            this.service.validar(usuario);
         }catch(error){
             const msgs = error.mensagens;
-            msgs.forEach(msg => mensagemErro(msg))
+            msgs.forEach(msg => mensagemErro(msg));
             return false;
         }
 
         this.service.salvar(usuario)
             .then(response =>{
-                mensagemSucesso('Usuário cadastrado com sucesso! Faça o login para acessar o sistema.')
-                this.props.history.push('/login')
+                mensagemSucesso('Usuário cadastrado com sucesso! Faça o login para acessar o sistema.');
+                this.props.history.push('/login');
             }).catch(error => {
-                mensagemErro(error.response.data)
+                mensagemErro(error.response.data);
             })
     }
 
     cancelar = () => {
-        this.props.history.push('/login')
+        this.props.history.push('/login');
     }
 
     render(){
         return(
-            <div className="row justify-content-center">  {/* Centraliza a row */}
-                <div className="col-md-6">  {/* Aumenta a largura da coluna para 6 em vez de 5 e elimina offset */}
+            <div className="row justify-content-center">  
+                <div className="col-md-6">
                     <Card title="Cadastro de Usuário">
                         <div className="bs-component">
                             <FormGroup label="*Nome:" htmlFor="inputNome">
-                                <input 
+                                <InputField 
                                     type="text" 
-                                    className="form-control" 
                                     id="inputNome" 
                                     name="nome" 
                                     onChange={e => this.setState({nome: e.target.value})} 
                                 />
                             </FormGroup>
                             <FormGroup label="*Email:" htmlFor="inputEmail">
-                                <input 
+                                <InputField 
                                     type="email" 
-                                    className="form-control" 
                                     id="inputEmail" 
                                     name="email" 
                                     onChange={e => this.setState({email: e.target.value})} 
                                 />
                             </FormGroup>
                             <FormGroup label="*Senha:" htmlFor="inputSenha">
-                                <input 
+                                <InputField 
                                     type="password" 
-                                    className="form-control" 
                                     id="inputSenha" 
                                     name="senha" 
                                     onChange={e => this.setState({senha: e.target.value})} 
                                 />
                             </FormGroup>
                             <FormGroup label="*Repita a Senha:" htmlFor="inputRepitaSenha">
-                                <input 
+                                <InputField 
                                     type="password" 
-                                    className="form-control" 
                                     id="inputRepitaSenha" 
                                     name="senha" 
                                     onChange={e => this.setState({senhaRepeticao: e.target.value})} 
                                 />
                             </FormGroup>
-                            <div className="d-flex justify-content-between mt-3">  {/* Espaço acima dos botões */}
+                            <div className="d-flex justify-content-between mt-3">
                                 <span className="text-secondary" style={{ fontSize: "12px" }}>
                                     *Preenchimento obrigatório
                                 </span>
@@ -117,4 +114,4 @@ class CadastroUsuario extends React.Component{
     }
 }
 
-export default withRouter(CadastroUsuario)
+export default withRouter(CadastroUsuario);

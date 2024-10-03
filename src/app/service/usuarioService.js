@@ -3,15 +3,15 @@ import ErroValidacao from "./exception/ErroValidacao";
 
 class UsuarioService extends ApiService{
     constructor(){
-        super('/api/usuarios')
+        super('/api/usuarios');
     }
 
     autenticar(credenciais){
-        return this.post('/autenticar', credenciais)
+        return this.post('/autenticar', credenciais);
     }
 
     obterSaldoPorUsuario(id){
-        return this.get(`/${id}/saldo`)
+        return this.get(`/${id}/saldo`);
     }
 
     salvar(usuario){
@@ -34,6 +34,16 @@ class UsuarioService extends ApiService{
             erros.push('Digite a senha 2x.');
         }else if(usuario.senhaRepeticao !== usuario.senha ){
             erros.push('As senhas não correspondem.');
+        }else{
+            if (usuario.senha.length < 8) {
+                erros.push('A senha deve ter pelo menos 8 caracteres.');
+            }
+            if (!/[a-zA-Z]/.test(usuario.senha)) {
+                erros.push('A senha deve conter pelo menos uma letra.');
+            }
+            if (!/\d/.test(usuario.senha)) {
+                erros.push('A senha deve conter pelo menos um número.');
+            }
         }
 
         if(erros && erros.length>0){

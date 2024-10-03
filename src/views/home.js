@@ -1,5 +1,5 @@
 import React from "react";
-import UsuarioService from "../app/service/usuarioService";
+import UsuarioService from "../app/service/UsuarioService";
 import { AuthContext } from "../main/provedorAutenticacao";
 
 
@@ -10,7 +10,6 @@ class Home extends React.Component{
     }
 
     formatarSaldo(valor) {
-        // Formata o saldo para o formato BRL (R$)
         return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
@@ -25,9 +24,9 @@ class Home extends React.Component{
         this.UsuarioService
             .obterSaldoPorUsuario(usuarioLogado.id)
             .then(response => {
-                this.setState({saldo: response.data})
+                this.setState({saldo: response.data});
             }).catch(error => {
-                console.error(error.response)
+                console.error(error.response);
             })
     }
 
@@ -48,6 +47,6 @@ class Home extends React.Component{
     }
 }
 
-Home.contextType = AuthContext
+Home.contextType = AuthContext;
 
-export default Home
+export default Home;

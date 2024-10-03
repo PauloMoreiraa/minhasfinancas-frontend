@@ -1,21 +1,17 @@
-import React from 'react';
-import Rotas from './rotas';
-import Navbar from '../components/navbar';
-import ProvedorAutenticacao from './provedorAutenticacao'
+import React from "react";
+import Rotas from "./Rotas";
+import Navbar from "../components/Navbar";
+import ProvedorAutenticacao from "./provedorAutenticacao";
 
-import 'toastr/build/toastr.min.js'
+import "toastr/build/toastr.min.js";
 
-import 'bootswatch/dist/flatly/bootstrap.css';
-import '../custom.css'
-import 'toastr/build/toastr.css'
+import "bootswatch/dist/flatly/bootstrap.css";
+import "../custom.css";
+import "toastr/build/toastr.css";
 
-import 'primereact/resources/themes/lara-light-cyan/theme.css';
-import 'primereact/resources/primereact.min.css'
-import 'primeicons/primeicons.css'
-
-
-
-
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 class App extends React.Component {
   render(){

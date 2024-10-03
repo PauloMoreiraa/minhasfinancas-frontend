@@ -1,11 +1,11 @@
 import React from "react";
 import {Route, Switch, BrowserRouter, HashRouter} from 'react-router-dom'
-import Login from "../views/login";
-import CadastroUsuario from "../views/cadastroUsuario";
-import Home from "../views/home";
-import consultaLancamentos from "../views/lancamentos/consulta-lancamentos";
-import cadastroLancamentos from "../views/lancamentos/cadastro-lancamentos";
-import LandingPage from "../views/landingPage";
+import Login from "../views/Login";
+import CadastroUsuario from "../views/CadastroUsuario";
+import Home from "../views/Home";
+import ConsultaLancamentos from "../views/lancamentos/ConsultaLancamentos";
+import CadastroLancamentos from "../views/lancamentos/CadastroLancamentos";
+import LandingPage from "../views/LandingPage";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { AuthConsumer } from "./provedorAutenticacao";
 
@@ -19,7 +19,7 @@ function RotaAutenticada({component: Component, isUsuarioAutenticado, ...props})
                ) 
             }else{
                 return(
-                    <Redirect to={{pathname: '/login', state : {from: componentProps.location}}} />
+                    <Redirect to={{pathname: '/Login', state : {from: componentProps.location}}} />
                 )
             }
         }} />
@@ -31,13 +31,13 @@ function Rotas(props){
         <HashRouter>
             <Switch>
                 <Route exact path="/" component={LandingPage}/>
-                <Route path="/cadastro-usuarios" component={CadastroUsuario} />
-                <Route path="/login" component={Login} />
+                <Route path="/CadastroUsuario" component={CadastroUsuario} />
+                <Route path="/Login" component={Login} />
                 
 
-                <RotaAutenticada isUsuarioAutenticado={props.isUsuarioAutenticado} path="/home" component={Home} />
-                <RotaAutenticada isUsuarioAutenticado={props.isUsuarioAutenticado} path="/consulta-lancamentos" component={consultaLancamentos} />
-                <RotaAutenticada isUsuarioAutenticado={props.isUsuarioAutenticado} path="/cadastro-lancamentos/:id?" component={cadastroLancamentos} />
+                <RotaAutenticada isUsuarioAutenticado={props.isUsuarioAutenticado} path="/Home" component={Home} />
+                <RotaAutenticada isUsuarioAutenticado={props.isUsuarioAutenticado} path="/ConsultaLancamentos" component={ConsultaLancamentos} />
+                <RotaAutenticada isUsuarioAutenticado={props.isUsuarioAutenticado} path="/CadastroLancamentos/:id?" component={CadastroLancamentos} />
             </Switch>
         </HashRouter>
     )

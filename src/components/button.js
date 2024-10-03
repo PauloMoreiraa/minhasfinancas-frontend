@@ -1,7 +1,6 @@
 import React from "react";
 
 function ButtonComponent(props) {
-  // Definindo classes de estilo com base no 'variant' passado via props
   const getButtonClasses = (variant) => {
     switch (variant) {
         case 'dark':

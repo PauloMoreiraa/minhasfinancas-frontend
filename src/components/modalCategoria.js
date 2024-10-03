@@ -1,6 +1,5 @@
 import React from 'react';
 import { Dialog } from 'primereact/dialog';
-import { Button } from 'primereact/button';
 
 const ModalCategoria = ({ header, visible, onHide, footer, children }) => {
     return (

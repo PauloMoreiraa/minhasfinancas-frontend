@@ -1,6 +1,6 @@
 class localStorageService{
     static adicionarItem(chave, valor){
-        localStorage.setItem(chave, JSON.stringify(valor))
+        localStorage.setItem(chave, JSON.stringify(valor));
     }
 
     static obterItem(chave){
@@ -9,8 +9,8 @@ class localStorageService{
     }
 
     static removerItem(chave){
-       localStorage.removeItem (chave)
+       localStorage.removeItem (chave);
     }
 }
 
-export default localStorageService
+export default localStorageService;

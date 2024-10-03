@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarItem from "./navbarItem";
+import NavbarItem from "./NavbarItem";
 import { AuthConsumer } from "../main/provedorAutenticacao";
 
 function Navbar(props){
@@ -11,10 +11,10 @@ function Navbar(props){
             </button>
             <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav">
-                    <NavbarItem render={props.isUsuarioAutenticado} href="#/home" label="Início" />
-                    <NavbarItem render={props.isUsuarioAutenticado} href="#/cadastro-usuarios" label="Usuários" />
-                    <NavbarItem render={props.isUsuarioAutenticado} href="#/consulta-lancamentos" label="Lançamentos" />
-                    <NavbarItem render={props.isUsuarioAutenticado} onClick={props.deslogar} href="#/login" label="Sair" />
+                    <NavbarItem render={props.isUsuarioAutenticado} href="#/Home" label="Início" />
+                    <NavbarItem render={props.isUsuarioAutenticado} href="#/CadastroUsuario" label="Usuários" />
+                    <NavbarItem render={props.isUsuarioAutenticado} href="#/ConsultaLancamentos" label="Lançamentos" />
+                    <NavbarItem render={props.isUsuarioAutenticado} onClick={props.deslogar} href="#/Login" label="Sair" />
                 </ul>
             </div>
             <a href="#/home" className="navbar-brand branco">Minhas Finanças</a>

@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 class LandingPage extends React.Component{
 
     goToHomePage = () => {
-        this.props.history.push("/home")
+        this.props.history.push("/home");
     }
 
     render(){
@@ -18,10 +18,9 @@ class LandingPage extends React.Component{
                         <i className="pi pi-sign-in"></i>Acessar
                     </button>
                 </div>
-                
             </div>
         )
     }
 }
 
-export default withRouter(LandingPage)
+export default withRouter(LandingPage);

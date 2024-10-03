@@ -14,4 +14,4 @@ function NavbarItem({render, ...props}){
     
 }
 
-export default NavbarItem
+export default NavbarItem;

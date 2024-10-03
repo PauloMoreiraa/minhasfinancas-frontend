@@ -1,17 +1,16 @@
 import React from "react";
-import currencyFormatter from 'currency-formatter';
-import ButtonIcon from "../../components/buttonIcon";
-import 'primeicons/primeicons.css';
+import currencyFormatter from "currency-formatter";
+import ButtonIcon from "../../components/ButtonIcon";
+import "primeicons/primeicons.css";
 
 
 
 export default props => {
 
-    //meses
     const nomesMeses = [
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
+    ]
 
     const rows = props.lancamentos.map(lancamento => {
         return(
@@ -23,7 +22,6 @@ export default props => {
                 <td>{lancamento.status}</td>
                 <td>{lancamento.categoria ? lancamento.categoria.descricao : 'Sem Categoria'}</td>
                 <td className="d-flex gap-1">
-                     {/* Botão "Efetivar" */}
                     <ButtonIcon
                         title="Efetivar"
                         disabled={lancamento.status !== 'PENDENTE'}
@@ -31,8 +29,6 @@ export default props => {
                         variant="success"
                         icon="pi-check"
                     />
-
-                    {/* Botão "Cancelar" */}
                     <ButtonIcon
                         title="Cancelar"
                         disabled={lancamento.status !== 'PENDENTE'}
@@ -40,8 +36,6 @@ export default props => {
                         variant="warning"
                         icon="pi-times"
                     />
-
-                    {/* Botão "Editar" */}
                     <ButtonIcon
                         title="Editar"
                         disabled={lancamento.status === 'EFETIVADO' || lancamento.status === 'CANCELADO'}
@@ -49,8 +43,6 @@ export default props => {
                         variant="primary"
                         icon="pi-pencil"
                     />
-
-                    {/* Botão "Excluir" */}
                     <ButtonIcon
                         title="Excluir"
                         disabled={lancamento.status === 'EFETIVADO' || lancamento.status === 'CANCELADO'}

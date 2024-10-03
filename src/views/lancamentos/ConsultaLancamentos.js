@@ -1,26 +1,26 @@
 import React from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
-import Card from '../../components/card';
-import FormGroup from '../../components/form-group';
-import SelectMenu from "../../components/selectMenu";
-import LancamentosTable from "./lancamentosTable";
-import LancamentoService from "../../app/service/lancamentoService";
-import LocalStorageService from "../../app/service/localstorageService";
-import CategoriaService from "../../app/service/categoriaService";
-import ButtonComponent from "../../components/button";
-import ButtonModal from "../../components/buttonModal";
-import ModalCategoria from "../../components/modalCategoria";
+import Card from "../../components/Card";
+import FormGroup from "../../components/FormGroup";
+import SelectMenu from "../../components/SelectMenu";
+import LancamentosTable from "./LancamentosTable";
+import LancamentoService from "../../app/service/LancamentoService";
+import LocalStorageService from "../../app/service/LocalstorageService";
+import CategoriaService from "../../app/service/CategoriaService";
+import ButtonComponent from "../../components/Button";
+import ButtonModal from "../../components/ButtonModal";
+import ModalCategoria from "../../components/ModalCategoria";
 
-import { cadastrarCategoria } from '../../app/service/actions/categoriaActions';
+import { cadastrarCategoria } from "../../app/service/actions/CategoriaActions";
 
+import * as messages from "../../components/Toastr";
 
-import * as messages from '../../components/toastr';
-
-import { Dialog } from 'primereact/dialog';
-import { Button } from 'primereact/button';
+import { Dialog } from "primereact/dialog";
+import InputField from "../../components/InputField";
 
 class ConsultaLancamentos extends React.Component {
+
     state = {
         ano: '',
         mes: '',
@@ -33,7 +33,7 @@ class ConsultaLancamentos extends React.Component {
         categorias: [],
         showModal: false,
         novaCategoria: ''
-    };
+    }
 
     constructor() {
         super();
@@ -42,28 +42,26 @@ class ConsultaLancamentos extends React.Component {
     }
 
     componentDidMount() {
-        this.buscarCategorias(); // Chamando o método para buscar categorias ao montar o componente
+        this.buscarCategorias(); 
     }
 
     buscarCategorias = () => {
         this.categoriaService.obterTodasCategorias()
             .then(resposta => {
-                this.setState({ categorias: resposta.data }); // Armazenando as categorias no estado
+                this.setState({ categorias: resposta.data });
             }).catch(error => {
                 messages.mensagemErro("Erro ao buscar categorias.");
-            });
-    };
+            })
+    }
 
     buscar = () => {
         if (!this.state.ano) {
             messages.mensagemErro('O preenchimento do campo Ano é obrigatório.');
             return false;
-        }
+        };
 
-    
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
-    
-        // objeto de filtro para lançamentos
+
         const lancamentoFiltro = {
             ano: this.state.ano,
             mes: this.state.mes,
@@ -84,11 +82,11 @@ class ConsultaLancamentos extends React.Component {
             this.setState({ lancamentos: lista });
         }).catch(error => {
             console.log(error);
-        });
+        })
     }
 
     editar = (id) => {
-        this.props.history.push(`/cadastro-lancamentos/${id}`);
+        this.props.history.push(`/CadastroLancamentos/${id}`);
     }
 
     abrirConfirmacao = (lancamento) => {
@@ -107,15 +105,14 @@ class ConsultaLancamentos extends React.Component {
                 const index = lancamentos.indexOf(this.state.lancamentoDeletar);
                 lancamentos.splice(index, 1);
                 this.setState({ lancamentos: lancamentos, showConfirmDialog: false });
-
                 messages.mensagemSucesso('Lançamento excluído com sucesso!');
             }).catch(error => {
                 messages.mensagemErro('Ocorreu um erro ao tentar excluir o lançamento.');
-            });
+            })
     }
 
     preparaFormularioCadastro = () => {
-        this.props.history.push('/cadastro-lancamentos');
+        this.props.history.push('/CadastroLancamentos');
     }
 
     alterarStatus = async (lancamento, status) => {
@@ -138,18 +135,17 @@ class ConsultaLancamentos extends React.Component {
 
     openModal = () => {
         this.setState({ showModal: true });
-    }
+    };
     
     closeModal = () => {
         this.setState({ showModal: false, novaCategoria: '' });
     }
 
-    // Método para cadastrar nova categoria
     cadastrarCategoria = async () => {
         const { novaCategoria } = this.state;
         await cadastrarCategoria(novaCategoria);
-        this.buscarCategorias(); // Atualiza a lista de categorias
-    };
+        this.buscarCategorias();
+    }
 
     
     
@@ -164,17 +160,17 @@ class ConsultaLancamentos extends React.Component {
                     type="button"
                     label="Cancelar"
                     icon="pi pi-times"
-                    variant="dark" // Use o variant que preferir
+                    variant="dark" 
                 />
                 <ButtonComponent
                     onClick={this.deletar}
                     type="button"
                     label="Sim"
                     icon="pi pi-check"
-                    variant="info" // Use o variant que preferir
+                    variant="info" 
                 />
             </div>
-        );
+        )
 
         //modal footer para a categoria
         const modalFooter = (
@@ -192,7 +188,7 @@ class ConsultaLancamentos extends React.Component {
                     variant="info"
                 />
             </div>
-        );
+        )
 
         return (
             <Card title='Consulta Lançamentos'>
@@ -200,13 +196,25 @@ class ConsultaLancamentos extends React.Component {
                     <div className="col-md-6">
                         <div className="bs-component">
                             <FormGroup htmlFor="inputAno" label="*Ano:">
-                                <input onChange={e => this.setState({ ano: e.target.value })} value={this.state.ano} type="number" className="form-control" id="inputAno" placeholder="Digite o Ano" />
+                                <InputField 
+                                    onChange={e => this.setState({ ano: e.target.value })} 
+                                    value={this.state.ano} 
+                                    type="number" 
+                                    id="inputAno" 
+                                    placeholder="Digite o Ano" 
+                                />
                             </FormGroup>
                             <FormGroup htmlFor="inputMes" label="Mês: ">
                                 <SelectMenu onChange={e => this.setState({ mes: e.target.value })} value={this.state.mes} id="inputMes" className="form-control" lista={meses} />
                             </FormGroup>
                             <FormGroup htmlFor="inputDescricao" label="Descrição: ">
-                                <input onChange={e => this.setState({ descricao: e.target.value })} value={this.state.descricao} type="text" className="form-control" id="inputDescricao" placeholder="Digite a Descrição" />
+                                <InputField 
+                                    onChange={e => this.setState({ descricao: e.target.value })} 
+                                    value={this.state.descricao} 
+                                    type="text" 
+                                    id="inputDescricao" 
+                                    placeholder="Digite a Descrição" 
+                                />
                             </FormGroup>
                             <FormGroup htmlFor="inputTipo" label="Tipo de Lançamento: ">
                                 <SelectMenu onChange={e => this.setState({ tipo: e.target.value })} value={this.state.tipo} id="inputTipo" className="form-control" lista={tipos} />
@@ -218,7 +226,7 @@ class ConsultaLancamentos extends React.Component {
                                     id="inputCategoria" 
                                     className="form-control" 
                                     lista={[
-                                        { label: "Selecione...", value: "" },
+                                        { label: "Escolher...", value: "" },
                                         ...this.state.categorias.map(c => ({ label: c.descricao, value: c.id }))
                                     ]} 
                                 />
@@ -257,8 +265,7 @@ class ConsultaLancamentos extends React.Component {
                                 onClick={this.openModal} 
                                 title="Cadastrar nova categoria" 
                                 icon="pi-plus-circle" 
-                                variant="dark"
-                                >
+                                variant="dark">
                                 Cadastrar nova categoria
                                 </ButtonModal>
                             </div>
@@ -268,8 +275,7 @@ class ConsultaLancamentos extends React.Component {
                                 onClick={this.handleClick} 
                                 title="Cadastrar nova categoria" 
                                 icon="pi-upload" 
-                                variant="dark"
-                                >
+                                variant="dark">
                                 Realizar upload de arquivo
                                 </ButtonModal>
                             </div>
@@ -279,8 +285,7 @@ class ConsultaLancamentos extends React.Component {
                                 onClick={this.handleClick} 
                                 title="Cadastrar nova categoria" 
                                 icon="pi-map" 
-                                variant="dark"
-                                >
+                                variant="dark">
                                 Visualizar lançamentos no mapa
                                 </ButtonModal>
                             </div>
@@ -304,24 +309,22 @@ class ConsultaLancamentos extends React.Component {
                         </p>
                     </Dialog>
                 </div>
-
                 <ModalCategoria 
-                        header="Cadastrar Categoria" 
-                        visible={this.state.showModal} 
-                        onHide={this.closeModal} 
-                        footer={modalFooter}
-                    >
-                        <FormGroup htmlFor="novaCategoria" label="*Descrição:">
-                            <input 
-                                type="text" 
-                                className="form-control" 
-                                id="novaCategoria" 
-                                value={this.state.novaCategoria} 
-                                onChange={e => this.setState({ novaCategoria: e.target.value })} 
-                                placeholder="Digite a descrição da categoria"
-                            />
-                        </FormGroup>
-                    </ModalCategoria>
+                    header="Cadastrar Categoria" 
+                    visible={this.state.showModal} 
+                    onHide={this.closeModal} 
+                    footer={modalFooter}>
+                    <FormGroup htmlFor="novaCategoria" label="*Descrição:">
+                        <input 
+                            type="text" 
+                            className="form-control" 
+                            id="novaCategoria" 
+                            value={this.state.novaCategoria} 
+                            onChange={e => this.setState({ novaCategoria: e.target.value })} 
+                            placeholder="Digite a descrição da categoria"
+                        />
+                    </FormGroup>
+                </ModalCategoria>
             </Card>
         )
     }
