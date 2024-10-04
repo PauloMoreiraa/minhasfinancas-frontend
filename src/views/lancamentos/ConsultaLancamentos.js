@@ -152,12 +152,17 @@ class ConsultaLancamentos extends React.Component {
     exportarDados = async () => {
         this.setState({ isExporting: true });
         try {
-            // await new Promise((resolve) => setTimeout(resolve, 2000));
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             const { ano, mes, tipo, descricao, categoriaId } = this.state;
             const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
 
             if (!ano) {
                 messages.mensagemErro("O preenchimento do campo Ano é obrigatório.");
+                return;
+            }
+
+            if(ano < 1000 || ano > 3000){
+                messages.mensagemErro("Ano inválido.");
                 return;
             }
     
@@ -252,7 +257,12 @@ class ConsultaLancamentos extends React.Component {
                         <div className="bs-component">
                             <FormGroup htmlFor="inputAno" label="*Ano:">
                                 <InputField 
-                                    onChange={e => this.setState({ ano: e.target.value })} 
+                                    onChange={e => {
+                                        const value = e.target.value;
+                                        if (value.length <= 4 && /^\d*$/.test(value)) {
+                                            this.setState({ ano: value });
+                                        }
+                                    }} 
                                     value={this.state.ano} 
                                     type="number" 
                                     id="inputAno" 
