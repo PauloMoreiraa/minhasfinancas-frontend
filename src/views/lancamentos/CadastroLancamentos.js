@@ -152,7 +152,9 @@ class CadastroLancamentos extends React.Component{
                                 id="inputCategoria"
                                 lista={[
                                     { label: "Escolher...", value: "" },
-                                    ...this.state.categorias.map(c => ({ label: c.descricao, value: c.id }))
+                                    ...this.state.categorias
+                                        .sort((a, b) => a.descricao.localeCompare(b.descricao)) // Ordena as categorias
+                                        .map(c => ({ label: c.descricao, value: c.id }))
                                 ]}
                                 name="categoriaId"
                                 value={this.state.categoriaId}

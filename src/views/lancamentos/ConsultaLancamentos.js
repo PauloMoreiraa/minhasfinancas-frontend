@@ -145,8 +145,54 @@ class ConsultaLancamentos extends React.Component {
         const { novaCategoria } = this.state;
         await cadastrarCategoria(novaCategoria);
         this.buscarCategorias();
+        this.closeModal();
     }
 
+   
+    exportarDados = async () => {
+        try {
+            const { ano, mes, tipo, descricao, categoriaId } = this.state;
+            const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
+    
+            const lancamentoFiltro = {
+                ano,
+                mes,
+                tipo,
+                descricao,
+                categoriaId,
+                usuario: usuarioLogado.id
+            };
+    
+            const response = await this.service.exportarDados(lancamentoFiltro);
+    
+            const dados = response.data;
+    
+            if (!dados || dados.length === 0) {
+                messages.mensagemAlert("Não há dados para exportar.");
+                return;
+            }
+    
+            const jsonString = JSON.stringify(dados, null, 2);
+            const blob = new Blob([jsonString], { type: 'application/json' });
+    
+            // Cria um link temporário para download
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lancamentos.json';
+            document.body.appendChild(a);
+            a.click();
+    
+            // Limpa o link temporário
+            URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+            messages.mensagemSucesso("Dados exportados com sucesso!");
+        } catch (error) {
+            messages.mensagemErro("Erro ao exportar os dados: " + error.message);
+            console.log(error.message);
+        }
+    };
     
     
     render() {
@@ -227,7 +273,9 @@ class ConsultaLancamentos extends React.Component {
                                     className="form-control" 
                                     lista={[
                                         { label: "Escolher...", value: "" },
-                                        ...this.state.categorias.map(c => ({ label: c.descricao, value: c.id }))
+                                        ...this.state.categorias
+                                            .sort((a, b) => a.descricao.localeCompare(b.descricao))
+                                            .map(c => ({ label: c.descricao, value: c.id }))
                                     ]} 
                                 />
                             </FormGroup>

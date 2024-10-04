@@ -85,4 +85,28 @@ export default class LancamentoService extends ApiService{
         }
     }
 
+    exportarDados(lancamentoFiltro) {
+        let params = `?ano=${lancamentoFiltro.ano}`;
+
+        if (lancamentoFiltro.mes) {
+            params = `${params}&mes=${lancamentoFiltro.mes}`;
+        }
+        if (lancamentoFiltro.tipo) {
+            params = `${params}&tipo=${lancamentoFiltro.tipo}`;
+        }
+        if (lancamentoFiltro.status) {
+            params = `${params}&status=${lancamentoFiltro.status}`;
+        }
+        if (lancamentoFiltro.usuario) {
+            params = `${params}&usuario=${lancamentoFiltro.usuario}`;
+        }
+        if (lancamentoFiltro.descricao) {
+            params = `${params}&descricao=${lancamentoFiltro.descricao}`;
+        }
+        if (lancamentoFiltro.categoriaId) {
+            params = `${params}&categoriaId=${lancamentoFiltro.categoriaId}`;
+        }
+
+        return this.get(`/download${params}`, { responseType: 'blob' });
+    }
 }
