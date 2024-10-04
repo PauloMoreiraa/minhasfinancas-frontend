@@ -23,6 +23,7 @@ function ButtonComponent(props) {
       onClick={props.onClick} 
       type={props.type} 
       className={getButtonClasses(props.variant)}
+      disabled={props.disabled}
     >
       <i className={`pi ${props.icon}`}></i> {props.label}
     </button>

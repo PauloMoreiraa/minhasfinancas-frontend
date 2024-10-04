@@ -150,6 +150,7 @@ class ConsultaLancamentos extends React.Component {
 
    
     exportarDados = async () => {
+        this.setState({ isExporting: true });
         try {
             const { ano, mes, tipo, descricao, categoriaId } = this.state;
             const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
@@ -196,6 +197,8 @@ class ConsultaLancamentos extends React.Component {
         } catch (error) {
             messages.mensagemErro("Erro ao exportar os dados: " + error.message);
             console.log(error.message);
+        } finally {
+            this.setState({ isExporting: false });
         }
     };
     
@@ -291,6 +294,7 @@ class ConsultaLancamentos extends React.Component {
                                 label="Buscar"
                                 icon="pi-search"
                                 variant="success"
+                                disabled={this.state.isExporting}
                                 />
                                 <ButtonComponent
                                 onClick={this.preparaFormularioCadastro}
@@ -298,6 +302,7 @@ class ConsultaLancamentos extends React.Component {
                                 label="Cadastrar"
                                 icon="pi-plus"
                                 variant="danger"
+                                disabled={this.state.isExporting}
                                 />
                                 <ButtonComponent
                                 onClick={this.exportarDados}
@@ -305,6 +310,7 @@ class ConsultaLancamentos extends React.Component {
                                 label="Exportar Dados"
                                 icon="pi-download"
                                 variant="info-2"
+                                disabled={this.state.isExporting}
                                 />
                             </div>
                         </div>
