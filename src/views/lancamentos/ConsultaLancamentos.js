@@ -153,6 +153,11 @@ class ConsultaLancamentos extends React.Component {
         try {
             const { ano, mes, tipo, descricao, categoriaId } = this.state;
             const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
+
+            if (!ano) {
+                messages.mensagemErro("O preenchimento do campo Ano é obrigatório.");
+                return;
+            }
     
             const lancamentoFiltro = {
                 ano,
