@@ -152,6 +152,7 @@ class ConsultaLancamentos extends React.Component {
     exportarDados = async () => {
         this.setState({ isExporting: true });
         try {
+            // await new Promise((resolve) => setTimeout(resolve, 2000));
             const { ano, mes, tipo, descricao, categoriaId } = this.state;
             const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
 
@@ -256,10 +257,11 @@ class ConsultaLancamentos extends React.Component {
                                     type="number" 
                                     id="inputAno" 
                                     placeholder="Digite o Ano" 
+                                    disabled={this.state.isExporting}
                                 />
                             </FormGroup>
                             <FormGroup htmlFor="inputMes" label="Mês: ">
-                                <SelectMenu onChange={e => this.setState({ mes: e.target.value })} value={this.state.mes} id="inputMes" className="form-control" lista={meses} />
+                                <SelectMenu onChange={e => this.setState({ mes: e.target.value })} value={this.state.mes} id="inputMes" className="form-control" lista={meses} disabled={this.state.isExporting} />
                             </FormGroup>
                             <FormGroup htmlFor="inputDescricao" label="Descrição: ">
                                 <InputField 
@@ -267,11 +269,12 @@ class ConsultaLancamentos extends React.Component {
                                     value={this.state.descricao} 
                                     type="text" 
                                     id="inputDescricao" 
-                                    placeholder="Digite a Descrição" 
+                                    placeholder="Digite a Descrição"
+                                    disabled={this.state.isExporting} 
                                 />
                             </FormGroup>
                             <FormGroup htmlFor="inputTipo" label="Tipo de Lançamento: ">
-                                <SelectMenu onChange={e => this.setState({ tipo: e.target.value })} value={this.state.tipo} id="inputTipo" className="form-control" lista={tipos} />
+                                <SelectMenu onChange={e => this.setState({ tipo: e.target.value })} value={this.state.tipo} id="inputTipo" className="form-control" lista={tipos} disabled={this.state.isExporting} />
                             </FormGroup>
                             <FormGroup htmlFor="inputCategoria" label="Categoria: ">
                                 <SelectMenu 
@@ -285,6 +288,7 @@ class ConsultaLancamentos extends React.Component {
                                             .sort((a, b) => a.descricao.localeCompare(b.descricao))
                                             .map(c => ({ label: c.descricao, value: c.id }))
                                     ]} 
+                                    disabled={this.state.isExporting}
                                 />
                             </FormGroup>
                             <div className="d-flex gap-1">
@@ -307,7 +311,7 @@ class ConsultaLancamentos extends React.Component {
                                 <ButtonComponent
                                 onClick={this.exportarDados}
                                 type="button"
-                                label="Exportar Dados"
+                                label={this.state.isExporting ? "Exportando..." : "Exportar Dados"}
                                 icon="pi-download"
                                 variant="info-2"
                                 disabled={this.state.isExporting}
@@ -324,7 +328,7 @@ class ConsultaLancamentos extends React.Component {
                                 onClick={this.openModal} 
                                 title="Cadastrar nova categoria" 
                                 icon="pi-plus-circle" 
-                                variant="dark">
+                                variant="dark" disabled={this.state.isExporting}>
                                 Cadastrar nova categoria
                                 </ButtonModal>
                             </div>
@@ -334,7 +338,8 @@ class ConsultaLancamentos extends React.Component {
                                 onClick={this.handleClick} 
                                 title="Cadastrar nova categoria" 
                                 icon="pi-upload" 
-                                variant="dark">
+                                variant="dark"
+                                disabled={this.state.isExporting}>
                                 Realizar upload de arquivo
                                 </ButtonModal>
                             </div>
@@ -344,7 +349,8 @@ class ConsultaLancamentos extends React.Component {
                                 onClick={this.handleClick} 
                                 title="Cadastrar nova categoria" 
                                 icon="pi-map" 
-                                variant="dark">
+                                variant="dark"
+                                disabled={true}>
                                 Visualizar lançamentos no mapa
                                 </ButtonModal>
                             </div>
