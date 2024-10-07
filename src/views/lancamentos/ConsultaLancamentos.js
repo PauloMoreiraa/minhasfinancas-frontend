@@ -11,6 +11,7 @@ import CategoriaService from "../../app/service/CategoriaService";
 import ButtonComponent from "../../components/Button";
 import ButtonModal from "../../components/ButtonModal";
 import ModalCategoria from "../../components/ModalCategoria";
+import ModalUpload from "../../components/ModalUpload";
 
 import { cadastrarCategoria } from "../../app/service/actions/CategoriaActions";
 
@@ -32,7 +33,9 @@ class ConsultaLancamentos extends React.Component {
         lancamentos: [],
         categorias: [],
         showModal: false,
-        novaCategoria: ''
+        novaCategoria: '',
+        showModalUpload: false,
+        selectedFile: null
     }
 
     constructor() {
@@ -43,6 +46,11 @@ class ConsultaLancamentos extends React.Component {
 
     componentDidMount() {
         this.buscarCategorias(); 
+
+        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
+        if (usuarioLogado) {
+            this.setState({ usuarioId: usuarioLogado.id });
+        }
     }
 
     buscarCategorias = () => {
@@ -141,6 +149,19 @@ class ConsultaLancamentos extends React.Component {
         this.setState({ showModal: false, novaCategoria: '' });
     }
 
+    openModalUpload = () => {
+        this.setState({ showModalUpload: true });
+    };
+    
+    closeModalUpload = () => {
+        this.setState({ showModalUpload: false });
+    };
+
+    handleUploadFile = (file) => {
+        console.log('Arquivo selecionado para upload:', file);
+        messages.mensagemSucesso("Upload realizado com sucesso!");
+    };
+
     cadastrarCategoria = async () => {
         const { novaCategoria } = this.state;
         await cadastrarCategoria(novaCategoria);
@@ -180,7 +201,7 @@ class ConsultaLancamentos extends React.Component {
             const dados = response.data;
     
             if (!dados || dados.length === 0) {
-                messages.mensagemAlert("Não há dados para exportar.");
+                messages.mensagemAlert("Nenhum resultado foi encontrado para sua exportação. Tente ajustar os filtros.");
                 return;
             }
     
@@ -208,7 +229,6 @@ class ConsultaLancamentos extends React.Component {
         }
     };
     
-    
     render() {
         const meses = this.service.obterListaMeses();
         const tipos = this.service.obterListaTipos();
@@ -221,6 +241,7 @@ class ConsultaLancamentos extends React.Component {
                     label="Cancelar"
                     icon="pi pi-times"
                     variant="dark" 
+                    size="medium"
                 />
                 <ButtonComponent
                     onClick={this.deletar}
@@ -228,6 +249,7 @@ class ConsultaLancamentos extends React.Component {
                     label="Sim"
                     icon="pi pi-check"
                     variant="info" 
+                    size="medium"
                 />
             </div>
         )
@@ -240,12 +262,14 @@ class ConsultaLancamentos extends React.Component {
                     label="Cancelar" 
                     icon="pi pi-times" 
                     variant="dark"
+                    size="medium"
                 />
                 <ButtonComponent 
                     onClick={this.cadastrarCategoria} 
                     label="Confirmar" 
                     icon="pi pi-check" 
                     variant="info"
+                    size="medium"
                 />
             </div>
         )
@@ -308,6 +332,7 @@ class ConsultaLancamentos extends React.Component {
                                 label="Buscar"
                                 icon="pi-search"
                                 variant="success"
+                                size="medium"
                                 disabled={this.state.isExporting}
                                 />
                                 <ButtonComponent
@@ -316,6 +341,7 @@ class ConsultaLancamentos extends React.Component {
                                 label="Cadastrar"
                                 icon="pi-plus"
                                 variant="danger"
+                                size="medium"
                                 disabled={this.state.isExporting}
                                 />
                                 <ButtonComponent
@@ -324,6 +350,7 @@ class ConsultaLancamentos extends React.Component {
                                 label={this.state.isExporting ? "Exportando..." : "Exportar Dados"}
                                 icon="pi-download"
                                 variant="info-2"
+                                size="medium"
                                 disabled={this.state.isExporting}
                                 />
                             </div>
@@ -344,27 +371,27 @@ class ConsultaLancamentos extends React.Component {
                             </div>
                             <hr />
                             <div className="d-flex justify-content-center align-items-center">
-                                <ButtonModal 
-                                onClick={this.handleClick} 
-                                title="Cadastrar nova categoria" 
+                            <ButtonModal 
+                                onClick={this.openModalUpload} 
+                                title="Realizar upload de arquivo" 
                                 icon="pi-upload" 
                                 variant="dark"
                                 disabled={this.state.isExporting}>
                                 Realizar upload de arquivo
-                                </ButtonModal>
+                            </ButtonModal>
                             </div>
                             <hr />
-                            <div className="d-flex justify-content-center align-items-center">
+                            {/* <div className="d-flex justify-content-center align-items-center">
                                 <ButtonModal 
                                 onClick={this.handleClick} 
-                                title="Cadastrar nova categoria" 
+                                title="Visualizar lançamentos no mapa" 
                                 icon="pi-map" 
                                 variant="dark"
                                 disabled={true}>
                                 Visualizar lançamentos no mapa
                                 </ButtonModal>
                             </div>
-                            <hr />
+                            <hr /> */}
                         </div>
                         
                     </div>
@@ -400,6 +427,23 @@ class ConsultaLancamentos extends React.Component {
                         />
                     </FormGroup>
                 </ModalCategoria>
+                
+                <ModalUpload
+                    header="Upload - Arquivo CSV"
+                    visible={this.state.showModalUpload}
+                    onHide={this.closeModalUpload}
+                    usuarioId={this.state.usuarioId}
+                    
+                >
+                    <FormGroup htmlFor="inputFile" label="Selecione um arquivo:">
+                        <input 
+                            type="file" 
+                            id="inputFile" 
+                            onChange={e => this.setState({ selectedFile: e.target.files[0] })} 
+                            
+                    />
+                    </FormGroup>
+                </ModalUpload>
             </Card>
         )
     }

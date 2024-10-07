@@ -1,4 +1,4 @@
-import ApiService from "../apiservice";
+import ApiService from "../ApiService";
 import localStorageService from "./LocalstorageService";
 
 import jwt from "jsonwebtoken";

@@ -19,15 +19,17 @@ class Home extends React.Component{
     }
 
     componentDidMount(){
-        const usuarioLogado = this.context.usuarioAutenticado
-
+        const usuarioLogado = this.context.usuarioAutenticado;
+        console.log("Usuário logado:", usuarioLogado); 
+    
         this.UsuarioService
             .obterSaldoPorUsuario(usuarioLogado.id)
             .then(response => {
+                console.log("Saldo retornado:", response.data); 
                 this.setState({saldo: response.data});
             }).catch(error => {
-                console.error(error.response);
-            })
+                console.error("Erro ao obter saldo:", error.response);
+            });
     }
 
     render(){

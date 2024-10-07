@@ -1,4 +1,4 @@
-import ApiService from "../apiservice";
+import ApiService from "../ApiService";
 
 export default class CategoriaService extends ApiService {
     constructor() {

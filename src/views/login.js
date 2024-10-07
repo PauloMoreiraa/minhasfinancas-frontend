@@ -87,7 +87,7 @@ class Login extends React.Component{
                                             <hr />                
                                             <div class="d-flex justify-content-between w-100">
                                                 <div className="d-flex justify-content-center align-items-center">
-                                                    <span style={{fontSize:"12px"}} className="text-secondary" >*Preenchimento obrigatório</span>
+                                                    <span style={{fontSize:"10px"}} className="text-secondary" >*Preenchimento obrigatório</span>
                                                 </div>
                                                 <div className="d-flex">
                                                     <ButtonComponent
@@ -96,6 +96,7 @@ class Login extends React.Component{
                                                         label="Cadastrar"
                                                         icon="pi-plus"
                                                         variant="dark"
+                                                        size="small"
                                                     />
                                                     <ButtonComponent
                                                         onClick={this.entrar}
@@ -103,6 +104,7 @@ class Login extends React.Component{
                                                         label="Entrar"
                                                         icon="pi-sign-in"
                                                         variant="info"
+                                                        size="small"
                                                     />
                                                 </div>
                                             </div>

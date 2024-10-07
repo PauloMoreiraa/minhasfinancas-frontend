@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import * as messages from "../../components/Toastr";
 
-import { obterListaMeses } from "../../app/utils/GlobalUtils";
+import { obterListaMeses } from "../../app/utils";
 
 import Card from "../../components/Card";
 import FormGroup from "../../components/FormGroup";
