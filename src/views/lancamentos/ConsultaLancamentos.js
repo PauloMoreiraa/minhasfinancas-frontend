@@ -164,10 +164,12 @@ class ConsultaLancamentos extends React.Component {
 
     cadastrarCategoria = async () => {
         const { novaCategoria } = this.state;
-        await cadastrarCategoria(novaCategoria);
-        this.buscarCategorias();
-        this.closeModal();
-    }
+        const response = await cadastrarCategoria(novaCategoria);
+        if (response) {
+            this.buscarCategorias();  
+            this.closeModal();   
+        }
+    };
 
    
     exportarDados = async () => {
