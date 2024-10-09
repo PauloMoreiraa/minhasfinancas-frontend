@@ -71,9 +71,9 @@ const ModalUpload = ({ header, visible, onHide, footer, width = '50vw', usuarioI
                 onHide(); 
     
                 if (totalErros === 0) {
-                    messages.mensagemSucesso('Importação concluída com sucesso!');
+                    messages.mensagemSucesso(`Importação concluída com sucesso! <br/> Todas as ${totalImportadas} linhas foram processadas com sucesso.`);
                 } else {
-                    const mensagem = `Importação concluída: ${totalImportadas} de ${totalLinhas} lançamentos importados. ${totalErros} erro(s) encontrado(s).`;
+                    const mensagem = `Total de linhas processadas: ${totalLinhas} <br/> Linhas processadas com sucesso: ${totalImportadas} <br/> Linhas processadas com erro: ${totalErros}`;
                     messages.mensagemAlert(mensagem);
                     setErrosDetalhados(result.mensagensErros);
                     setShowErrosModal(true); 
