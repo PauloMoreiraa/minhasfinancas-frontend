@@ -1,6 +1,6 @@
-import React from 'react';
-import { Dialog } from 'primereact/dialog';
-import ButtonComponent from './Button';
+import React from "react";
+import { Dialog } from "primereact/dialog";
+import ButtonComponent from "./Button";
 
 const ModalErros = ({ visible, onHide, erros }) => {
     return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const InputField = ({ type, value, onChange, id, placeholder, name, disabled }) => {
     return (

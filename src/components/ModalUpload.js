@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
-import ButtonComponent from './Button';
-import uploadService from '../app/service/UploadService';
-import * as messages from '../components/Toastr';
-import ModalErros from './ModalErros'; 
+import ButtonComponent from "./Button";
+import uploadService from "../app/service/UploadService";
+import * as messages from "../components/Toastr";
+import ModalErros from "./ModalErros"; 
 
 const ModalUpload = ({ header, visible, onHide, footer, width = '50vw', usuarioId }) => {
     const [selectedFile, setSelectedFile] = useState(null);

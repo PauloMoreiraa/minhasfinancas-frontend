@@ -71,7 +71,7 @@ O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que ofer
 
 ## 🗃️ Estrutura do Projeto
 ```
-my-app/
+minhas-financas/
 ├── package.json
 ├── README.md
 ├── public/
@@ -82,34 +82,48 @@ my-app/
     ├── custom.css
     ├── index.js
     ├── app/
-    │   ├── apiservice.js
+    │   ├── ApiService.js
     │   └── service/
-    │       ├── authService.js
-    │       ├── lancamentoService.js
-    │       ├── localstorageService.js
-    │       └── usuarioService.js
-    │   └── service/exception/
-    │       └── ErroValidacao.js
+    │       ├── AuthService.js
+    │       ├── CategoriaService.js
+    │       ├── LancamentoService.js
+    │       ├── LocalstorageService.js
+    │       ├── UploadService.js
+    │       ├── UsuarioService.js
+    │       └── exception/
+    │          └── ErroValidacao.js
+    │       └── actions/
+    │          └── CategoriaActions.js
     ├── components/
-    │   ├── card.js
-    │   ├── form-group.js
-    │   ├── navbar.js
-    │   ├── navbarItem.js
-    │   ├── selectMenu.js
-    │   └── toastr.js
+    │   ├── Button.js
+    │   ├── ButtonIcon.js
+    │   ├── ButtonModal.js
+    │   ├── Card.js
+    │   ├── FormGroup.js
+    │   ├── InputField.js
+    │   ├── ModalCategoria.js
+    │   ├── ModalErros.js
+    │   ├── ModalUpload.js
+    │   ├── Navbar.js
+    │   ├── NavbarItem.js
+    │   ├── SelectMenu.js
+    │   └── Toastr.js
+    ├── utils/
+    │   └── index.js
     ├── main/
     │   ├── App.js
     │   ├── provedorAutenticacao.js
-    │   └── rotas.js
+    │   └── Rotas.js
     └── views/
-        ├── cadastroUsuario.js
-        ├── home.js
-        ├── landingPage.js
-        ├── login.js
+        ├── CadastroUsuario.js
+        ├── Home.js
+        ├── LandingPage.js
+        ├── Login.js
         └── lancamentos/
-            ├── cadastro-lancamentos.js
-            ├── consulta-lancamentos.js
-            └── lancamentosTable.js
+            ├── CadastroLancamentos.js
+            ├── ConsultaLancamentos.js
+            └── LancamentosTable.js
+
 ```
 
 ## `public/`
@@ -122,19 +136,26 @@ my-app/
   - **Propósito**: Contém serviços e lógica para interagir com APIs e gerenciar dados da aplicação. Esta pasta inclui arquivos que lidam com a comunicação com o back-end e a manipulação de dados.
 
     #### `service/`
-    - **Propósito**: Subpasta dentro de `app/` dedicada a diferentes serviços que encapsulam a lógica de negócios e a comunicação com APIs.
-
-    #### `service/exception/`
-    - **Propósito**: Subpasta dentro de `service/` para tratar erros e validações específicas da aplicação.
+    - **Propósito**: Subpasta dentro de `app/` dedicada a diferentes serviços que encapsulam a lógica de negócios e a comunicação com APIs, como autenticação, lançamentos, categorias e upload de arquivos.
+    
+    #### `exception/`
+    - **Propósito**: Subpasta dentro de `service/` para tratar erros e validações específicas da aplicação, fornecendo lógica de tratamento de exceções.
+    
+    #### `actions/`
+    - **Propósito**: Contém ações específicas, como as relacionadas a categorias, que facilitam a comunicação e atualização de estados em diferentes partes da aplicação.
 
   ### `components/`
-  - **Propósito**: Contém componentes reutilizáveis da interface do usuário. Estes são pequenos blocos de construção que podem ser usados em várias partes da aplicação, como botões, formulários e barras de navegação.
+  - **Propósito**: Contém componentes reutilizáveis da interface do usuário. Estes são blocos de construção que podem ser usados em várias partes da aplicação, como botões, formulários, modais, inputs, entre outros.
+
+  ### `utils/`
+  - **Propósito**: Contém utilitários e funções auxiliares que são usados em diversas partes da aplicação, facilitando a reutilização de código e mantendo a organização.
 
   ### `main/`
-  - **Propósito**: Contém arquivos principais que configuram e definem a estrutura básica da aplicação. Isso inclui o componente principal da aplicação e arquivos de configuração para autenticação e rotas.
+  - **Propósito**: Contém arquivos principais que configuram e definem a estrutura básica da aplicação. Isso inclui o componente principal da aplicação (`App.js`), configuração de autenticação e definição das rotas de navegação da aplicação.
 
   ### `views/`
   - **Propósito**: Contém páginas ou vistas da aplicação que representam diferentes seções da interface do usuário. Cada vista pode ser uma página completa ou uma parte significativa da interface, como formulários de login ou páginas de perfil.
 
     #### `lancamentos/`
-    - **Propósito**: Subpasta dentro de `views/` dedicada a páginas e componentes específicos para a gestão de lançamentos financeiros.
+    - **Propósito**: Subpasta dentro de `views/` dedicada a páginas e componentes específicos para a gestão de lançamentos financeiros, como cadastro, consulta e exibição em tabela.
+"""
