@@ -1,21 +1,17 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import * as messages from "../../components/Toastr";
-
 import { obterListaMeses } from "../../app/utils";
-
 import Card from "../../components/Card";
 import FormGroup from "../../components/FormGroup";
 import SelectMenu from "../../components/SelectMenu";
 import CategoriaService from "../../app/service/CategoriaService";
 import ButtonComponent from "../../components/Button";
 import InputField from "../../components/InputField";
-
 import LancamentoService from "../../app/service/LancamentoService";
 import LocalStorageService from "../../app/service/LocalstorageService";
 
-class CadastroLancamentos extends React.Component{
-
+class CadastroLancamentos extends React.Component {
     state = {
         id: null,
         descricao: '',
@@ -28,48 +24,71 @@ class CadastroLancamentos extends React.Component{
         usuario: null,
         atualizando: false,
         categorias: [],
-        mesSelecionado: ''
+        mesSelecionado: '',
+        valorFormatado: '',
     }
 
-    handleMesChange = (event) => {
-        this.setState({ mesSelecionado: event.target.value });
-    }
-
-    constructor(){
+    constructor() {
         super();
         this.service = new LancamentoService();
         this.categoriaService = new CategoriaService();
     }
 
-    componentDidMount(){
-        const params = this.props.match.params
+    componentDidMount() {
+        const params = this.props.match.params;
         this.buscarCategorias();
-        if(params.id){
+        if (params.id) {
             this.service
-                    .obterPorId(params.id)
-                    .then(response => {
-                            this.setState({...response.data, atualizando: true});
-                    }).catch(erros => {
-                        messages.mensagemErro(erros.response.data);
-                    });
+                .obterPorId(params.id)
+                .then(response => {
+                    this.setState({ ...response.data, atualizando: true });
+                    this.setState({ valorFormatado: this.formatarValor(response.data.valor * 100) }); 
+                }).catch(erros => {
+                    messages.mensagemErro(erros.response.data);
+                });
         }
     }
 
     buscarCategorias = () => {
         this.categoriaService.obterTodasCategorias()
             .then(response => {
-                this.setState({ categorias: response.data }); 
+                this.setState({ categorias: response.data });
             }).catch(error => {
                 messages.mensagemErro("Erro ao buscar categorias.");
             });
     }
 
+    handleValorChange = (event) => {
+        const { value } = event.target;
+
+        const apenasNumeros = value.replace(/\D/g, '');
+
+        const valor = this.formatarValor(apenasNumeros);
+
+        this.setState({ valor: apenasNumeros, valorFormatado: valor });
+    }
+
+    formatarValor = (valor) => {
+        if (!valor) return '';
+
+        const valorFloat = parseFloat(valor) / 100;
+        return `R$ ${valorFloat.toFixed(2).replace('.', ',')}`;
+    }
+
     submit = () => {
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
+        
+        const { descricao, mes, ano, tipo, categoriaId, valor } = this.state;
 
-        const {descricao, valor, mes, ano, tipo, categoriaId} = this.state;
-
-        const lancamento = {descricao, valor, mes, ano, tipo, usuario: usuarioLogado.id, categoriaId};
+        const lancamento = {
+            descricao,
+            valor: parseFloat(valor) / 100, 
+            mes,
+            ano,
+            tipo,
+            usuario: usuarioLogado.id,
+            categoriaId
+        };
 
         try {
             this.service.validar(lancamento);
@@ -84,36 +103,36 @@ class CadastroLancamentos extends React.Component{
             .then(response => {
                 this.props.history.push('/ConsultaLancamentos');
                 messages.mensagemSucesso('Lançamento cadastrado com sucesso!');
-            }).catch(error =>{
+            }).catch(error => {
                 messages.mensagemErro(error.response.data);
             });
     };
 
     atualizar = () => {
-        const {descricao, valor, mes, ano, tipo, status, id, usuario, categoriaId } = this.state;
-        const lancamento = {descricao, valor, mes, ano, tipo, id, usuario, status, categoriaId };
+        const { descricao, valor, mes, ano, tipo, status, id, usuario, categoriaId } = this.state;
+        const lancamento = { descricao, valor: parseFloat(valor) / 100, mes, ano, tipo, id, usuario, status, categoriaId };
 
         this.service
             .atualizar(lancamento)
             .then(response => {
                 this.props.history.push('/ConsultaLancamentos');
                 messages.mensagemSucesso('Lançamento atualizado com sucesso!');
-            }).catch(error =>{
+            }).catch(error => {
                 messages.mensagemErro(error.response.data);
-            })
+            });
     }
 
     handleChange = (event) => {
         const value = event.target.value;
         const name = event.target.name;
-        this.setState({ [name] : value });
+        this.setState({ [name]: value });
     }
 
-    render(){
+    render() {
         const tipos = this.service.obterListaTipos();
         const meses = obterListaMeses("Escolher...");
 
-        return(
+        return (
             <Card title={this.state.atualizando ? 'Atualização de Lançamento' : 'Cadastro de Lançamento'}>
                 <div className="row">
                     <div className="col-md-12">
@@ -131,18 +150,24 @@ class CadastroLancamentos extends React.Component{
                 <div className="row">
                     <div className="col-md-4">
                         <FormGroup id="inputAno" label="*Ano:">
-                            <InputField 
-                                id="inputAno" 
-                                type="number" 
-                                name="ano" 
-                                value={this.state.ano} 
-                                onChange={this.handleChange} 
+                            <InputField
+                                id="inputAno"
+                                type="number"
+                                name="ano"
+                                value={this.state.ano}
+                                onChange={this.handleChange}
                             />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
                         <FormGroup id="inputMes" label="*Mês:">
-                            <SelectMenu onChange={e => this.setState({ mes: e.target.value })} value={this.state.mes} id="inputMes" className="form-control" lista={meses} />
+                            <SelectMenu
+                                onChange={e => this.setState({ mes: e.target.value })}
+                                value={this.state.mes}
+                                id="inputMes"
+                                className="form-control"
+                                lista={meses}
+                            />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
@@ -153,7 +178,7 @@ class CadastroLancamentos extends React.Component{
                                 lista={[
                                     { label: "Escolher...", value: "" },
                                     ...this.state.categorias
-                                        .sort((a, b) => a.descricao.localeCompare(b.descricao)) // Ordena as categorias
+                                        .sort((a, b) => a.descricao.localeCompare(b.descricao))
                                         .map(c => ({ label: c.descricao, value: c.id }))
                                 ]}
                                 name="categoriaId"
@@ -166,23 +191,37 @@ class CadastroLancamentos extends React.Component{
                 <div className="row">
                     <div className="col-md-4">
                         <FormGroup id="inputValor" label="*Valor:">
-                            <InputField 
-                                id="inputValor" 
-                                type="number" 
-                                name="valor" 
-                                value={this.state.valor} 
-                                onChange={this.handleChange} 
+                            <InputField
+                                id="inputValor"
+                                type="text"
+                                name="valorFormatado"
+                                value={this.state.valorFormatado}
+                                onChange={this.handleValorChange} 
                             />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
                         <FormGroup id="inputTipo" label="*Tipo:">
-                            <SelectMenu className="form-control" id="inputTipo" lista={tipos} name="tipo" value={this.state.tipo} onChange={this.handleChange} />
+                            <SelectMenu
+                                className="form-control"
+                                id="inputTipo"
+                                lista={tipos}
+                                name="tipo"
+                                value={this.state.tipo}
+                                onChange={this.handleChange}
+                            />
                         </FormGroup>
                     </div>
                     <div className="col-md-4">
                         <FormGroup id="inputStatus" label="Status: ">
-                            <input type="text" className="form-control" name="status" value={this.state.status} onChange={this.handleChange} disabled />
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="status"
+                                value={this.state.status}
+                                onChange={this.handleChange}
+                                disabled
+                            />
                         </FormGroup>
                     </div>
                 </div>

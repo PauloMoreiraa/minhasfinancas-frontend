@@ -4,7 +4,7 @@
 
 O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que oferece uma interface amigável e intuitiva para gerenciar suas finanças pessoais. Este front-end interage com a Minhas Finanças API para permitir o controle detalhado de ganhos e gastos, proporcionando uma experiência fluida e dinâmica para o usuário.
 
-🌐 [Projeto Backend](https://dev.azure.com/muralisti/Programa%20de%20Est%C3%A1gio%20da%20Muralis/_git/pem-paulo-henrique-front?path=%2F&version=GBdevelop&_a=contents)
+🌐 [Projeto Backend](https://dev.azure.com/muralisti/Programa%20de%20Est%C3%A1gio%20da%20Muralis/_git/pem-paulo-henrique-back?path=%2F&version=GBmain&_a=contents)
 
 ## 🚀 Tecnologias Utilizadas
 

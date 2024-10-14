@@ -15,7 +15,8 @@ toastr.options = {
   "showEasing": "swing",
   "hideEasing": "linear",
   "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
+  "hideMethod": "fadeOut",
+  
 }
 
 export function mostrarMensagem(titulo, mensagem, tipo){

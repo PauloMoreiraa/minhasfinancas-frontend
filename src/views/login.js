@@ -85,7 +85,7 @@ class Login extends React.Component{
                                                 />
                                             </FormGroup>
                                             <hr />                
-                                            <div class="d-flex justify-content-between w-100">
+                                            <div className="d-flex justify-content-between w-100">
                                                 <div className="d-flex justify-content-center align-items-center">
                                                     <span style={{fontSize:"10px"}} className="text-secondary" >*Preenchimento obrigatório</span>
                                                 </div>

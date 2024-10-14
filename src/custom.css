@@ -25,3 +25,7 @@ body{font-family: 'Poppins', sans-serif; padding-top:120px}pre{background:#f7f7f
 .btn-width-3{
     width: 15rem;/*240px*/
 }
+
+#toast-container > .toast {
+    opacity: 1 !important;
+  }

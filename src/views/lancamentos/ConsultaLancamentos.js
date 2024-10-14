@@ -125,7 +125,7 @@ class ConsultaLancamentos extends React.Component {
 
     alterarStatus = async (lancamento, status) => {
         try {
-            const response = await this.service.alterarStatus(lancamento.id, status);
+            await this.service.alterarStatus(lancamento.id, status);
             const lancamentos = this.state.lancamentos;
             const index = lancamentos.indexOf(lancamento);
             
@@ -175,7 +175,7 @@ class ConsultaLancamentos extends React.Component {
     exportarDados = async () => {
         this.setState({ isExporting: true });
         try {
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             const { ano, mes, tipo, descricao, categoriaId } = this.state;
             const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
 
