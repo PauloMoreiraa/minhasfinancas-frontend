@@ -9,6 +9,8 @@ function ButtonIcon(props) {
         return 'btn btn-warning';
       case 'primary':
         return 'btn btn-primary';
+      case 'info':
+        return 'btn btn-info';
       case 'danger':
         return 'btn btn-danger';
       default:

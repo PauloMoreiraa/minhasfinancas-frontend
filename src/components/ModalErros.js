@@ -5,19 +5,25 @@ import ButtonComponent from "./Button";
 const ModalErros = ({ visible, onHide, erros }) => {
     return (
         <Dialog
-            header="Alguns lançamentos não foram importados"
+            header="Erros encontrados"
             visible={visible}
             modal={true}
             onHide={onHide}
+            style={{ maxWidth: '60vw' }}
         >
             <div className="card">
                 <div className="card-body">
-                    <h5>Erros encontrados:</h5>
-                    <ul>
+                    <div style={{ whiteSpace: 'pre-wrap' }}>
                         {erros.map((erro, index) => (
-                            <li key={index}>Erro {index + 1}: {erro}</li>
+                            <div key={index} style={{ marginBottom: '10px' }}>
+                                {erro.split("\n").map((linha, i) => (
+                                    <p key={i} style={{ margin: '0' }}>
+                                        {linha}
+                                    </p>
+                                ))}
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 </div>
                 <div className="card-footer d-flex justify-content-end">
                     <ButtonComponent

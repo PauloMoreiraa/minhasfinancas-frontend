@@ -20,7 +20,7 @@ export default props => {
                 <td>{lancamento.tipo}</td>
                 <td>{nomesMeses[lancamento.mes - 1]}</td>
                 <td>{lancamento.status}</td>
-                <td>{lancamento.categoria ? lancamento.categoria.descricao : 'Sem Categoria'}</td>
+                <td>{lancamento.categoria ? lancamento.categoria.descricao : '-'}</td>
                 <td className="d-flex gap-1">
                     <ButtonIcon
                         title="Efetivar"
@@ -40,7 +40,7 @@ export default props => {
                         title="Editar"
                         disabled={lancamento.status === 'EFETIVADO' || lancamento.status === 'CANCELADO'}
                         onClick={() => props.editAction(lancamento.id)}
-                        variant="primary"
+                        variant="info"
                         icon="pi-pencil"
                     />
                     <ButtonIcon
