@@ -10,6 +10,7 @@ import ButtonComponent from "../../components/Button";
 import InputField from "../../components/InputField";
 import LancamentoService from "../../app/service/LancamentoService";
 import LocalStorageService from "../../app/service/LocalstorageService";
+import ButtonModal from "../../components/ButtonModal";
 
 class CadastroLancamentos extends React.Component {
     state = {
@@ -26,6 +27,8 @@ class CadastroLancamentos extends React.Component {
         categorias: [],
         mesSelecionado: '',
         valorFormatado: '',
+        latitude:'',
+        longitude:''
     }
 
     constructor() {
@@ -78,7 +81,7 @@ class CadastroLancamentos extends React.Component {
     submit = () => {
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
         
-        const { descricao, mes, ano, tipo, categoriaId, valor } = this.state;
+        const { descricao, mes, ano, tipo, categoriaId, valor, latitude, longitude } = this.state;
 
         const lancamento = {
             descricao,
@@ -87,7 +90,9 @@ class CadastroLancamentos extends React.Component {
             ano,
             tipo,
             usuario: usuarioLogado.id,
-            categoriaId
+            categoriaId,
+            latitude,
+            longitude
         };
 
         try {
@@ -109,8 +114,20 @@ class CadastroLancamentos extends React.Component {
     };
 
     atualizar = () => {
-        const { descricao, valor, mes, ano, tipo, status, id, usuario, categoriaId } = this.state;
-        const lancamento = { descricao, valor: parseFloat(valor) / 100, mes, ano, tipo, id, usuario, status, categoriaId };
+        const { descricao, valor, mes, ano, tipo, status, id, usuario, categoriaId, latitude, longitude } = this.state;
+        const lancamento = { 
+            descricao, 
+            valor: parseFloat(valor) / 100, 
+            mes, 
+            ano, 
+            tipo, 
+            id, 
+            usuario, 
+            status, 
+            categoriaId, 
+            latitude, 
+            longitude 
+        };
 
         this.service
             .atualizar(lancamento)
@@ -222,6 +239,41 @@ class CadastroLancamentos extends React.Component {
                                 onChange={this.handleChange}
                                 disabled
                             />
+                        </FormGroup>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-md-4">
+                        <FormGroup id="inputLatitude" label="Latitude:">
+                            <InputField
+                                id="inputLatitude"
+                                type="text"
+                                name="latitude"
+                                value={this.state.latitude}
+                                onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                    </div>
+                    <div className="col-md-4">
+                        <FormGroup id="inputLongitude" label="Longitude:">
+                            <InputField
+                                id="inputLongitude"
+                                type="text"
+                                name="longitude"
+                                value={this.state.longitude}
+                                onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                    </div>
+                    <div className="col-md-4">
+                        <FormGroup id="btnAbrirNoMapa" label="Selecione um ponto no mapa:">
+                            <ButtonModal
+                                onClick={this.handleClick}
+                                icon="pi-map"
+                                variant="dark"
+                                disabled={true}
+                                size="max-w"
+                            >Abrir no Mapa</ButtonModal>
                         </FormGroup>
                     </div>
                 </div>

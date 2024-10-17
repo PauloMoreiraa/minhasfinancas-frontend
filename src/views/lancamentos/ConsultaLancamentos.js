@@ -338,22 +338,22 @@ class ConsultaLancamentos extends React.Component {
                                 disabled={this.state.isExporting}
                                 />
                                 <ButtonComponent
-                                onClick={this.preparaFormularioCadastro}
-                                type="button"
-                                label="Cadastrar"
-                                icon="pi-plus"
-                                variant="danger"
-                                size="medium"
-                                disabled={this.state.isExporting}
+                                    onClick={this.preparaFormularioCadastro}
+                                    type="button"
+                                    label="Cadastrar"
+                                    icon="pi-plus"
+                                    variant="danger"
+                                    size="medium"
+                                    disabled={this.state.isExporting}
                                 />
                                 <ButtonComponent
-                                onClick={this.exportarDados}
-                                type="button"
-                                label={this.state.isExporting ? "Exportando..." : "Exportar Dados"}
-                                icon="pi-download"
-                                variant="info-2"
-                                size="medium"
-                                disabled={this.state.isExporting}
+                                    onClick={this.exportarDados}
+                                    type="button"
+                                    label={this.state.isExporting ? "Exportando..." : "Exportar Dados"}
+                                    icon="pi-download"
+                                    variant="info"
+                                    size="medium"
+                                    disabled={this.state.isExporting}
                                 />
                             </div>
                         </div>
@@ -364,36 +364,39 @@ class ConsultaLancamentos extends React.Component {
                             <hr />
                             <div className="d-flex justify-content-center align-items-center">
                                 <ButtonModal 
-                                onClick={this.openModal} 
-                                title="Cadastrar nova categoria" 
-                                icon="pi-plus-circle" 
-                                variant="dark" disabled={this.state.isExporting}>
-                                Cadastrar nova categoria
+                                    onClick={this.openModal} 
+                                    title="Cadastrar nova categoria" 
+                                    icon="pi-plus-circle" 
+                                    size="large"
+                                    variant="dark" disabled={this.state.isExporting}>
+                                    Cadastrar nova categoria
                                 </ButtonModal>
                             </div>
                             <hr />
                             <div className="d-flex justify-content-center align-items-center">
-                            <ButtonModal 
-                                onClick={this.openModalUpload} 
-                                title="Realizar upload de arquivo" 
-                                icon="pi-upload" 
-                                variant="dark"
-                                disabled={this.state.isExporting}>
-                                Realizar upload de arquivo
-                            </ButtonModal>
+                                <ButtonModal 
+                                    onClick={this.openModalUpload} 
+                                    title="Realizar upload de arquivo" 
+                                    icon="pi-upload" 
+                                    variant="dark"
+                                    size="large"
+                                    disabled={this.state.isExporting}>
+                                    Realizar upload de arquivo
+                                </ButtonModal>
                             </div>
                             <hr />
-                            {/* <div className="d-flex justify-content-center align-items-center">
+                            <div className="d-flex justify-content-center align-items-center">
                                 <ButtonModal 
                                 onClick={this.handleClick} 
                                 title="Visualizar lançamentos no mapa" 
                                 icon="pi-map" 
                                 variant="dark"
-                                disabled={true}>
+                                size="large"
+                                disabled={false}>
                                 Visualizar lançamentos no mapa
                                 </ButtonModal>
                             </div>
-                            <hr /> */}
+                            <hr />
                         </div>
                         
                     </div>

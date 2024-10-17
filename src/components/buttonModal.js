@@ -1,10 +1,11 @@
 import React from "react";
+import { getButtonSizeClass } from '../app/utils/buttonUtils'; 
 
 function ButtonModal(props) {
-  const { onClick, icon, variant, children, disabled } = props;
+  const { onClick, icon, variant, children, size, disabled } = props;
 
   const getButtonClasses = () => {
-    return `btn gap-1 btn-width-3 btn-outline-${variant} d-flex justify-content-center align-items-center`;
+    return `btn gap-1 ${getButtonSizeClass(size)} btn-outline-${variant} d-flex justify-content-center align-items-center`;
   };
 
   return (
