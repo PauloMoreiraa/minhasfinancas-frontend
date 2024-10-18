@@ -58,36 +58,38 @@ const ModalUpload = ({ header, visible, onHide, footer, width = '50vw', usuarioI
             const result = await uploadService.uploadFile(usuarioId, selectedFile);
     
             if (result) {
-                if (typeof result === 'string') { 
+                if (typeof result === 'string') {
                     setErrorMessage(result);
                     setUploading(false);
-                    return; 
+                    return;
                 }
     
                 const totalImportadas = result.lancamentosImportados;
                 const totalErros = result.erros;
-                const totalLinhas = totalImportadas + totalErros; 
+                const totalLinhas = totalImportadas + totalErros;
     
-                onHide(); 
+                const errosLeves = result.mensagensErros || [];
     
-                if (totalErros === 0) {
-                    messages.mensagemSucesso(`Importação concluída com sucesso! <br/> Todas as ${totalImportadas} linhas foram processadas com sucesso.`);
-                } else {
-                    const mensagem = `Total de linhas processadas: ${totalLinhas} <br/> Linhas processadas com sucesso: ${totalImportadas} <br/> Linhas processadas com erro: ${totalErros}`;
-                    messages.mensagemAlert(mensagem);
-                    setErrosDetalhados(result.mensagensErros);
+                onHide();
+    
+                const mensagem = `Total de linhas processadas: ${totalLinhas} <br/> Linhas processadas com sucesso: ${totalImportadas} <br/> Linhas com erro (graves): ${totalErros} <br/>`;
+                messages.mensagemAlert(mensagem);
+    
+                if (errosLeves.length > 0) {
+                    setErrosDetalhados(errosLeves); 
                     setShowErrosModal(true); 
+                } else {
+                    messages.mensagemSucesso(`Importação concluída com sucesso! <br/> Todas as ${totalImportadas} linhas foram processadas com sucesso.`);
                 }
     
                 setSelectedFile(null);
             }
             setUploading(false);
         } else {
-            setErrorMessage('Por favor, selecione um arquivo.'); 
+            setErrorMessage('Por favor, selecione um arquivo.');
         }
     };
     
-
     const handleCancel = () => {
         setSelectedFile(null); 
         setErrosDetalhados([]); 
@@ -101,7 +103,7 @@ const ModalUpload = ({ header, visible, onHide, footer, width = '50vw', usuarioI
                 return (
                     <ButtonComponent
                         icon="pi pi-file"
-                        variant="info-3"
+                        variant="info"
                         onClick={() => document.getElementById('fileInput').click()}
                         label="Selecione o arquivo"
                         size="large"
