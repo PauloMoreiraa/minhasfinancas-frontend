@@ -72,7 +72,7 @@ const ModalUpload = ({ header, visible, onHide, footer, width = '50vw', usuarioI
     
                 onHide();
     
-                const mensagem = `Total de linhas processadas: ${totalLinhas} <br/> Linhas processadas com sucesso: ${totalImportadas} <br/> Linhas com erro (graves): ${totalErros} <br/>`;
+                const mensagem = `Total de linhas processadas: ${totalLinhas} <br/> Linhas processadas com sucesso: ${totalImportadas} <br/> Linhas com erros graves: ${totalErros} <br/>`;
                 messages.mensagemAlert(mensagem);
     
                 if (errosLeves.length > 0) {
