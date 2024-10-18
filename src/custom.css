@@ -11,19 +11,19 @@ body{font-family: 'Poppins', sans-serif; padding-top:120px}pre{background:#f7f7f
 }
 
 .gap-1{
-    gap: 0.25rem;/*4px*/
+    gap: 0.25rem;
 }
 
 .btn-width-1{
-    width: 7.5rem;/*120px*/
+    width: 7.5rem;
 }
 
 .btn-width-2{
-    width: 9.75rem;/*156px*/
+    width: 9.75rem;
 }
 
 .btn-width-3{
-    width: 17rem;/*272px*/
+    width: 17rem;
 }
 
 .btn-max-width{

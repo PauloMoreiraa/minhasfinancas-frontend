@@ -23,7 +23,7 @@ function ButtonComponent(props) {
     <button 
       onClick={props.onClick} 
       type={props.type} 
-      className={`${getButtonClasses(props.variant)} ${getButtonSizeClass(props.size)}`} // Usa a função importada
+      className={`${getButtonClasses(props.variant)} ${getButtonSizeClass(props.size)}`}
       disabled={props.disabled}
     >
       <i className={`pi ${props.icon}`}></i> {props.label}
