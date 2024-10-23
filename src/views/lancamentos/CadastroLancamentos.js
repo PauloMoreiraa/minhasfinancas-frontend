@@ -11,6 +11,8 @@ import InputField from "../../components/InputField";
 import LancamentoService from "../../app/service/LancamentoService";
 import LocalStorageService from "../../app/service/LocalstorageService";
 import ButtonModal from "../../components/ButtonModal";
+import MapaCadastro from "../../components/MapaCadastro";
+import { Dialog } from "primereact/dialog"; 
 
 class CadastroLancamentos extends React.Component {
     state = {
@@ -27,8 +29,9 @@ class CadastroLancamentos extends React.Component {
         categorias: [],
         mesSelecionado: '',
         valorFormatado: '',
-        latitude:'',
-        longitude:''
+        latitude: '',
+        longitude: '',
+        showModalMapa: false,
     }
 
     constructor() {
@@ -45,7 +48,7 @@ class CadastroLancamentos extends React.Component {
                 .obterPorId(params.id)
                 .then(response => {
                     this.setState({ ...response.data, atualizando: true });
-                    this.setState({ valorFormatado: this.formatarValor(response.data.valor * 100) }); 
+                    this.setState({ valorFormatado: this.formatarValor(response.data.valor * 100) });
                 }).catch(erros => {
                     messages.mensagemErro(erros.response.data);
                 });
@@ -145,6 +148,14 @@ class CadastroLancamentos extends React.Component {
         this.setState({ [name]: value });
     }
 
+    toggleMapa = () => {
+        this.setState((prevState) => ({ showModalMapa: !prevState.showModalMapa }));
+    }
+
+    handleSelectLocation = (latitude, longitude) => {
+        this.setState({ latitude, longitude });
+    }
+
     render() {
         const tipos = this.service.obterListaTipos();
         const meses = obterListaMeses("Escolher...");
@@ -192,8 +203,8 @@ class CadastroLancamentos extends React.Component {
                             <SelectMenu
                                 className="form-control"
                                 id="inputCategoria"
-                                lista={[
-                                    { label: "Escolher...", value: "" },
+                                lista={[ 
+                                    { label: "Escolher...", value: "" }, 
                                     ...this.state.categorias
                                         .sort((a, b) => a.descricao.localeCompare(b.descricao))
                                         .map(c => ({ label: c.descricao, value: c.id }))
@@ -249,6 +260,7 @@ class CadastroLancamentos extends React.Component {
                                 id="inputLatitude"
                                 type="text"
                                 name="latitude"
+                                disabled={true}
                                 value={this.state.latitude}
                                 onChange={this.handleChange}
                             />
@@ -260,6 +272,7 @@ class CadastroLancamentos extends React.Component {
                                 id="inputLongitude"
                                 type="text"
                                 name="longitude"
+                                disabled={true}
                                 value={this.state.longitude}
                                 onChange={this.handleChange}
                             />
@@ -268,12 +281,11 @@ class CadastroLancamentos extends React.Component {
                     <div className="col-md-4">
                         <FormGroup id="btnAbrirNoMapa" label="Selecione um ponto no mapa:">
                             <ButtonModal
-                                onClick={this.handleClick}
+                                onClick={this.toggleMapa}
                                 icon="pi-map"
                                 variant="dark"
-                                disabled={true}
                                 size="max-w"
-                            >Abrir no Mapa</ButtonModal>
+                            >Abrir no mapa</ButtonModal>
                         </FormGroup>
                     </div>
                 </div>
@@ -283,29 +295,31 @@ class CadastroLancamentos extends React.Component {
                             <ButtonComponent
                                 onClick={() => this.props.history.push('../ConsultaLancamentos')}
                                 label="Cancelar"
-                                icon="pi-times"
-                                variant="dark"
+                                icon="pi pi-times"
+                                variant="danger"
                             />
-                            {this.state.atualizando ? (
-                                <ButtonComponent
-                                    onClick={this.atualizar}
-                                    label="Atualizar"
-                                    icon="pi-refresh"
-                                    variant="info"
-                                />
-                            ) : (
-                                <ButtonComponent
-                                    onClick={this.submit}
-                                    label="Salvar"
-                                    icon="pi-save"
-                                    variant="info"
-                                />
-                            )}
+                            <ButtonComponent
+                                onClick={this.state.atualizando ? this.atualizar : this.submit}
+                                label={this.state.atualizando ? 'Atualizar' : 'Salvar'}
+                                icon="pi pi-save"
+                                variant="success"
+                            />
                         </div>
                     </div>
                 </div>
+
+                <Dialog
+                    visible={this.state.showModalMapa}
+                    onHide={this.toggleMapa}
+                    header="Selecione um ponto no mapa"
+                    modal
+                >
+                    <MapaCadastro 
+                        onSelectLocation={this.handleSelectLocation} 
+                    />
+                </Dialog>
             </Card>
-        )
+        );
     }
 }
 

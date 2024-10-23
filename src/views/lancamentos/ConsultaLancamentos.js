@@ -19,6 +19,7 @@ import * as messages from "../../components/Toastr";
 
 import { Dialog } from "primereact/dialog";
 import InputField from "../../components/InputField";
+import ModalMapa from "../../components/ModalMapa";
 
 class ConsultaLancamentos extends React.Component {
 
@@ -35,7 +36,16 @@ class ConsultaLancamentos extends React.Component {
         showModal: false,
         novaCategoria: '',
         showModalUpload: false,
-        selectedFile: null
+        selectedFile: null,
+        showModalMapa: false,
+        lancamentosMapa: [],
+        filtroMapa: {
+            ano: '',
+            mes: '',
+            descricao: '',
+            tipo: '',
+            categoriaId: ''
+        }
     }
 
     constructor() {
@@ -67,31 +77,31 @@ class ConsultaLancamentos extends React.Component {
             messages.mensagemErro('O preenchimento do campo Ano é obrigatório.');
             return false;
         };
-
+    
         const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
-
+    
         const lancamentoFiltro = {
-            ano: this.state.ano,
-            mes: this.state.mes,
-            tipo: this.state.tipo,
-            descricao: this.state.descricao,
-            categoriaId: this.state.categoriaId,
+            ano: this.state.ano || '',  
+            mes: this.state.mes || '',
+            tipo: this.state.tipo || '',
+            descricao: this.state.descricao || '',
+            categoriaId: this.state.categoriaId || '',
             usuario: usuarioLogado.id
         };
     
-       
         this.service
-        .consultar(lancamentoFiltro)
-        .then(resposta => {
-            const lista = resposta.data;
-            if (lista.length < 1) {
-                messages.mensagemAlert("Nenhum resultado encontrado.");
-            }
-            this.setState({ lancamentos: lista });
-        }).catch(error => {
-            console.log(error);
-        })
-    }
+            .consultar(lancamentoFiltro)
+            .then(resposta => {
+                const lista = resposta.data;
+                if (lista.length < 1) {
+                    messages.mensagemAlert("Nenhum resultado encontrado.");
+                }
+                this.setState({ lancamentos: lista });
+            }).catch(error => {
+                console.log(error);
+            })
+    };
+    
 
     editar = (id) => {
         this.props.history.push(`/CadastroLancamentos/${id}`);
@@ -171,7 +181,6 @@ class ConsultaLancamentos extends React.Component {
         }
     };
 
-   
     exportarDados = async () => {
         this.setState({ isExporting: true });
         try {
@@ -210,7 +219,6 @@ class ConsultaLancamentos extends React.Component {
             const jsonString = JSON.stringify(dados, null, 2);
             const blob = new Blob([jsonString], { type: 'application/json' });
     
-            // Cria um link temporário para download
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -218,7 +226,6 @@ class ConsultaLancamentos extends React.Component {
             document.body.appendChild(a);
             a.click();
     
-            // Limpa o link temporário
             URL.revokeObjectURL(url);
             document.body.removeChild(a);
 
@@ -229,6 +236,33 @@ class ConsultaLancamentos extends React.Component {
         } finally {
             this.setState({ isExporting: false });
         }
+    };
+
+    handleClick = () => {
+        const { ano, mes, tipo, descricao, categoriaId } = this.state;
+        
+        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado');
+    
+        const usuarioId = usuarioLogado ? usuarioLogado.id : null;
+    
+        this.setState({ 
+            showModalMapa: true, 
+            lancamentosMapa: this.state.lancamentos,
+            filtroMapa: { 
+                ano, 
+                mes, 
+                tipo, 
+                descricao, 
+                categoriaId, 
+                usuarioId 
+            } 
+        });
+    };
+    
+    
+    
+    closeModalMapa = () => {
+        this.setState({ showModalMapa: false });
     };
     
     render() {
@@ -387,13 +421,13 @@ class ConsultaLancamentos extends React.Component {
                             <hr />
                             <div className="d-flex justify-content-center align-items-center">
                                 <ButtonModal 
-                                onClick={this.handleClick} 
-                                title="Visualizar lançamentos no mapa" 
-                                icon="pi-map" 
-                                variant="dark"
-                                size="large"
-                                disabled={false}>
-                                Visualizar lançamentos no mapa
+                                    onClick={this.handleClick} 
+                                    title="Visualizar lançamentos no mapa" 
+                                    icon="pi-map" 
+                                    variant="dark"
+                                    size="large"
+                                    disabled={this.state.isExporting}>
+                                    Visualizar lançamentos no mapa
                                 </ButtonModal>
                             </div>
                             <hr />
@@ -449,6 +483,16 @@ class ConsultaLancamentos extends React.Component {
                     />
                     </FormGroup>
                 </ModalUpload>
+
+                <Dialog 
+                    visible={this.state.showModalMapa}
+                    onHide={this.closeModalMapa}
+                    header="Lançamentos realizados"        
+                >
+                        <ModalMapa filtros={this.state.filtroMapa} />
+                </Dialog>
+                
+                
             </Card>
         )
     }
