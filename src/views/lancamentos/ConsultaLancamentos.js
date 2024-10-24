@@ -44,7 +44,7 @@ class ConsultaLancamentos extends React.Component {
             mes: '',
             descricao: '',
             tipo: '',
-            categoriaId: ''
+            categoriaId: 0
         }
     }
 

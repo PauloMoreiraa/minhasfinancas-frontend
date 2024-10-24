@@ -117,10 +117,14 @@ class CadastroLancamentos extends React.Component {
     };
 
     atualizar = () => {
-        const { descricao, valor, mes, ano, tipo, status, id, usuario, categoriaId, latitude, longitude } = this.state;
+        const { descricao, valorFormatado, mes, ano, tipo, status, id, usuario, categoriaId, latitude, longitude } = this.state;
+    
+        const apenasNumeros = valorFormatado.replace(/\D/g, '');
+        const valorEmCentavos = parseFloat(apenasNumeros);
+    
         const lancamento = { 
             descricao, 
-            valor: parseFloat(valor) / 100, 
+            valor: valorEmCentavos / 100, 
             mes, 
             ano, 
             tipo, 
@@ -131,7 +135,7 @@ class CadastroLancamentos extends React.Component {
             latitude, 
             longitude 
         };
-
+    
         this.service
             .atualizar(lancamento)
             .then(response => {

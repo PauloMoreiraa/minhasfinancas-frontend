@@ -7,30 +7,42 @@ import '@arcgis/core/assets/esri/themes/light/main.css';
 
 const ModalMapa = ({ filtros }) => {
     useEffect(() => {
-        // Define o símbolo azul para os pontos
         const symbol = new SimpleMarkerSymbol({
-            color: [0, 122, 255], // Azul
+            color: [0, 122, 255],
             outline: {
-                color: [255, 255, 255], // Contorno branco
+                color: [255, 255, 255],
                 width: 2
             },
-            size: 8 // Ajuste o tamanho conforme desejado
+            size: 8
         });
 
-        // Define o renderer para usar o símbolo azul
         const renderer = {
-            type: "simple", // Renderer simples para usar o símbolo em todos os pontos
+            type: "simple",
             symbol: symbol
         };
 
+        let definitionExpression = `usuario_id = ${filtros.usuarioId}`; 
+
+        if (filtros.descricao) {
+            definitionExpression += ` AND descricao LIKE '%${filtros.descricao}%'`;
+        }
+        if (filtros.ano) {
+            definitionExpression += ` AND ano = '${filtros.ano}'`; 
+        }
+        if (filtros.mes) {
+            definitionExpression += ` AND mes = '${filtros.mes}'`; 
+        }
+        if (filtros.tipo) {
+            definitionExpression += ` AND tipo LIKE '%${filtros.tipo}%'`;
+        }
+        if (filtros.categoriaId) {
+            definitionExpression += ` AND categoria_id = ${parseInt(filtros.categoriaId)}`;
+        }
+
         const featureLayer = new FeatureLayer({
             url: 'https://services3.arcgis.com/cS4GcXNpyMgMVA4J/arcgis/rest/services/MinhasFinancasMapa/FeatureServer/0',
-            definitionExpression: `descricao LIKE '%${filtros.descricao}%' 
-                                    AND ano LIKE '%${filtros.ano}' 
-                                    AND mes LIKE '%${filtros.mes}'
-                                    AND tipo LIKE '%${filtros.tipo}'
-                                    AND usuario_id = ${filtros.usuarioId}`,
-            renderer: renderer, // Aplica o renderer personalizado
+            definitionExpression: definitionExpression,
+            renderer: renderer,
             popupTemplate: {
                 title: "{descricao}",
                 content: `
@@ -41,6 +53,7 @@ const ModalMapa = ({ filtros }) => {
                     <b>Categoria:</b> {categoria_id}<br/>  
                     <b>Latitude:</b> {latitude}<br/>  
                     <b>Longitude:</b> {longitude}<br/> 
+                    <b>Status:</b>{status}<br/>
                 `
             }
         });
@@ -49,11 +62,11 @@ const ModalMapa = ({ filtros }) => {
             basemap: "topo-vector"
         });
         map.add(featureLayer);
-        
+
         const view = new MapView({
             container: "mapViewDiv",
             map: map,
-            zoom: 10,
+            zoom: 8,
             center: [-46.47429255, -23.54534991]
         });
 
@@ -68,7 +81,7 @@ const ModalMapa = ({ filtros }) => {
                 view.destroy();
             }
         };
-    }, [filtros]); 
+    }, [filtros]);
 
     return (
         <div
