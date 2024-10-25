@@ -72,10 +72,11 @@ const ModalUpload = ({ header, visible, onHide, footer, width = '50vw', usuarioI
     
                 onHide();
     
-                const mensagem = `Total de linhas processadas: ${totalLinhas} <br/> Linhas processadas com sucesso: ${totalImportadas} <br/> Linhas com erros graves: ${totalErros} <br/>`;
-                messages.mensagemAlert(mensagem);
+                
     
                 if (errosLeves.length > 0) {
+                    const mensagem = `Total de linhas processadas: ${totalLinhas} <br/> Linhas processadas com sucesso: ${totalImportadas} <br/> Linhas com erros graves: ${totalErros} <br/>`;
+                    messages.mensagemAlert(mensagem);
                     setErrosDetalhados(errosLeves); 
                     setShowErrosModal(true); 
                 } else {
@@ -89,6 +90,7 @@ const ModalUpload = ({ header, visible, onHide, footer, width = '50vw', usuarioI
             setErrorMessage('Por favor, selecione um arquivo.');
         }
     };
+    
     
     const handleCancel = () => {
         setSelectedFile(null); 
