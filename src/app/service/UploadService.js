@@ -62,7 +62,7 @@ class UploadService {
                     usuario_id: lancamento.usuario.id, 
                 }
             });
-    debugger
+    
             try {
                 const result = await this.featureLayer.applyEdits({
                     addFeatures: [graphic]
