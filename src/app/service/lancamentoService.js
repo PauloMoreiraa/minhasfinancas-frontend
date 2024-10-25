@@ -19,36 +19,34 @@ export default class LancamentoService extends ApiService {
     alterarStatus = async (id, status) => {
         try {
             const updatedLancamento = await this.put(`/${id}/atualiza-status`, { status });
-    
             const OBJECTID = await this.obterObjectIdDaFeatureLayer(id);
             if (!OBJECTID) {
                 throw new Error("Não foi possível encontrar o OBJECTID para o lançamento na Feature Layer.");
             }
-    
+
             const graphic = new Graphic({
                 attributes: {
                     OBJECTID: OBJECTID,
                     status: updatedLancamento.data.status 
                 }
             });
-    
+
             const result = await this.featureLayer.applyEdits({
                 updateFeatures: [graphic], 
             });
-    
+
             if (result.updateFeatureResults.length > 0) {
                 console.log("Status atualizado na Feature Layer com sucesso!", result);
             } else {
                 console.error("Erro ao atualizar status na Feature Layer:", result);
             }
-    
+
             return updatedLancamento;
         } catch (error) {
             console.error("Erro ao alterar o status do lançamento:", error);
             throw error;
         }
     };
-    
 
     async obterObjectIdDaFeatureLayer(id_lancamento) {
         const query = this.featureLayer.createQuery();
@@ -62,7 +60,6 @@ export default class LancamentoService extends ApiService {
         }
         return null; 
     }
-
 
     async atualizar(lancamento) {
         try {
@@ -90,8 +87,8 @@ export default class LancamentoService extends ApiService {
                     status: updatedLancamento.data.status,
                     latitude: lancamento.latitude,
                     longitude: lancamento.longitude,
-                    categoria_id: updatedLancamento.data.categoria.id,
-                    usuario_id: updatedLancamento.data.usuario.id
+                    categoria_id: updatedLancamento.data.categoria ? updatedLancamento.data.categoria.id : null,
+                    usuario_id: updatedLancamento.data.usuario ? updatedLancamento.data.usuario.id : null
                 }
             });
         
@@ -139,11 +136,11 @@ export default class LancamentoService extends ApiService {
                 status: savedLancamento.data.status,
                 latitude: lancamento.latitude,
                 longitude: lancamento.longitude,
-                categoria_id: savedLancamento.data.categoria.id,
-                usuario_id: savedLancamento.data.usuario.id
+                categoria_id: savedLancamento.data.categoria ? savedLancamento.data.categoria.id : null,
+                usuario_id: savedLancamento.data.usuario ? savedLancamento.data.usuario.id : null
             }
         });
-        debugger
+
         return this.featureLayer.applyEdits({
             addFeatures: [graphic],
         }).then((result) => {
@@ -227,7 +224,7 @@ export default class LancamentoService extends ApiService {
         if (!lancamento.tipo) {
             erros.push("Informe o Tipo.");
         }
-        if (erros && erros.length > 0) {
+        if (erros.length > 0) {
             throw new ErroValidacao(erros);
         }
     }

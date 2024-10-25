@@ -6,7 +6,7 @@ O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que ofer
 
 🌐 [Projeto Backend](https://dev.azure.com/muralisti/Programa%20de%20Est%C3%A1gio%20da%20Muralis/_git/pem-paulo-henrique-back?path=%2F&version=GBmain&_a=contents)
 
-## 🚀 Tecnologias Utilizadas
+### 🚀 Tecnologias Utilizadas
 
 - React 16.10.1
 - Axios 0.19.0
@@ -15,11 +15,12 @@ O projeto Minhas Finanças é uma aplicação desenvolvida com React JS que ofer
 - Primeicons 7.0.0
 - Primereact 10.8.2
 - Toastr 2.1.4
-- Node.js 10.24.1
+- Node.js 14.21.3
+- ArcGIS API for JavaScript
 
 ## 📄 Pré-requisitos
 
-- Node.js 10.24.1
+- Node.js 14.21.3
 
 ## 🔧 Instalação
 
@@ -83,6 +84,9 @@ minhas-financas/
     ├── index.js
     ├── app/
     │   ├── ApiService.js
+    │   ├── utils/
+    │   │   ├── index.js
+    │   │   └── buttonUtils.js
     │   └── service/
     │       ├── AuthService.js
     │       ├── CategoriaService.js
@@ -104,12 +108,12 @@ minhas-financas/
     │   ├── ModalCategoria.js
     │   ├── ModalErros.js
     │   ├── ModalUpload.js
+    │   ├── ModalMapa.js
+    │   ├── MapaCadastro.js
     │   ├── Navbar.js
     │   ├── NavbarItem.js
     │   ├── SelectMenu.js
     │   └── Toastr.js
-    ├── utils/
-    │   └── index.js
     ├── main/
     │   ├── App.js
     │   ├── provedorAutenticacao.js
@@ -123,6 +127,7 @@ minhas-financas/
             ├── CadastroLancamentos.js
             ├── ConsultaLancamentos.js
             └── LancamentosTable.js
+
 
 ```
 
@@ -144,11 +149,11 @@ minhas-financas/
     #### `actions/`
     - **Propósito**: Contém ações específicas, como as relacionadas a categorias, que facilitam a comunicação e atualização de estados em diferentes partes da aplicação.
 
+    #### `utils/`
+    - **Propósito**: Contém utilitários e funções auxiliares que são usados em diversas partes da aplicação, facilitando a reutilização de código e mantendo a organização.
+
   ### `components/`
   - **Propósito**: Contém componentes reutilizáveis da interface do usuário. Estes são blocos de construção que podem ser usados em várias partes da aplicação, como botões, formulários, modais, inputs, entre outros.
-
-  ### `utils/`
-  - **Propósito**: Contém utilitários e funções auxiliares que são usados em diversas partes da aplicação, facilitando a reutilização de código e mantendo a organização.
 
   ### `main/`
   - **Propósito**: Contém arquivos principais que configuram e definem a estrutura básica da aplicação. Isso inclui o componente principal da aplicação (`App.js`), configuração de autenticação e definição das rotas de navegação da aplicação.
