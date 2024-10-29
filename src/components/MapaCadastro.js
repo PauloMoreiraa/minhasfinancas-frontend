@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import MapView from '@arcgis/core/views/MapView';
 import Map from '@arcgis/core/Map';
 import Graphic from '@arcgis/core/Graphic';
-import GraphicLayer from '@arcgis/core/layers/GraphicsLayer';
-import SimpleMarkerSymbol from '@arcgis/core/symbols/SimpleMarkerSymbol';
+import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+import PictureMarkerSymbol from '@arcgis/core/symbols/PictureMarkerSymbol';
 import '@arcgis/core/assets/esri/themes/light/main.css';
 
 const MapaCadastro = ({ onSelectLocation }) => {
@@ -19,15 +19,14 @@ const MapaCadastro = ({ onSelectLocation }) => {
             center: [-46.47429255, -23.54534991]
         });
 
-        const graphicsLayer = new GraphicLayer();
-        map.add(graphicsLayer); 
+        const graphicsLayer = new GraphicsLayer();
+        map.add(graphicsLayer);
 
-        const pointSymbol = new SimpleMarkerSymbol({
-            color: [226, 38, 54],
-            outline: {
-                color: [255, 255, 255],
-                width: 2
-            }
+        const pinSymbol = new PictureMarkerSymbol({
+            url: `${process.env.PUBLIC_URL}/location.png`,
+            width: "25px",
+            height: "25px",
+            yoffset: "12px"
         });
 
         const handleMapClick = (event) => {
@@ -42,7 +41,7 @@ const MapaCadastro = ({ onSelectLocation }) => {
 
             const pointGraphic = new Graphic({
                 geometry: point,
-                symbol: pointSymbol
+                symbol: pinSymbol
             });
 
             graphicsLayer.removeAll();

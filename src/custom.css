@@ -32,4 +32,9 @@ body{font-family: 'Poppins', sans-serif; padding-top:120px}pre{background:#f7f7f
 
 #toast-container > .toast {
     opacity: 1 !important;
-  }
+}
+
+.custom-popup .esri-popup__content {
+    max-height: 200px; /* Ajuste conforme necessário */
+    overflow: hidden;  /* Isso vai esconder a barra de rolagem */
+}

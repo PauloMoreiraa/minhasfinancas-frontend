@@ -168,7 +168,7 @@ class CadastroLancamentos extends React.Component {
             <Card title={this.state.atualizando ? 'Atualização de Lançamento' : 'Cadastro de Lançamento'}>
                 <div className="row">
                     <div className="col-md-12">
-                        <FormGroup id="inputDescricao" label="Descrição: *">
+                        <FormGroup id="inputDescricao" label="*Descrição:">
                             <InputField
                                 id="inputDescricao"
                                 type="text"

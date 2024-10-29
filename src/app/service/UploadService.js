@@ -56,7 +56,7 @@ class UploadService {
                     valor: lancamento.valor,
                     tipo: lancamento.tipo,
                     status: lancamento.status,
-                    categoria_id: lancamento.categoria ? lancamento.categoria.id_categoria : null,
+                    categoria_id: lancamento.categoria ? lancamento.categoria.id : null,
                     latitude: lancamento.latitude,
                     longitude: lancamento.longitude,
                     usuario_id: lancamento.usuario.id, 
