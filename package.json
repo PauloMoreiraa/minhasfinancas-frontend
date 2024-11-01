@@ -1,6 +1,7 @@
 {
   "name": "minhas-financas-app",
   "version": "0.1.0",
+  "homepage": "/paulo",
   "private": true,
   "dependencies": {
     "@arcgis/core": "^4.20.0",
