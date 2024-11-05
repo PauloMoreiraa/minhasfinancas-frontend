@@ -81,6 +81,6 @@ class UploadService {
     }
 }    
 
-const uploadService = new UploadService('http://localhost:8080');
+const uploadService = new UploadService('http://ec2-23-22-239-117.compute-1.amazonaws.com/paulo');
 
 export default uploadService;
