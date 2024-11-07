@@ -81,6 +81,6 @@ class UploadService {
     }
 }    
 
-const uploadService = new UploadService('http://localhost:8080');
+const uploadService = new UploadService(process.env.REACT_APP_API_URL);
 
 export default uploadService;
