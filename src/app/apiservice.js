@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const httpClient = axios.create({
-    baseURL: 'http://ec2-23-22-239-117.compute-1.amazonaws.com/paulo/',
+    baseURL: 'http://localhost:8080',
     withCredentials: true
 })
 
