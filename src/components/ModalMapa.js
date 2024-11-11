@@ -44,7 +44,7 @@ const ModalMapa = ({ filtros }) => {
             definitionExpression: definitionExpression,
             renderer: renderer,
             popupTemplate: {
-                title: "{descricao}", // Título do popup
+                title: "{descricao}",
                 content: [
                     {
                         type: "fields",
@@ -86,12 +86,12 @@ const ModalMapa = ({ filtros }) => {
                             {
                                 fieldName: "latitude",
                                 label: "Latitude",
-                                format: { digitSeparator: false }
+                                format: { digitSeparator: false, places: 6 }
                             },
                             {
                                 fieldName: "longitude",
                                 label: "Longitude",
-                                format: { digitSeparator: false }
+                                format: { digitSeparator: false, places: 6 }
                             }
                         ]
                     }

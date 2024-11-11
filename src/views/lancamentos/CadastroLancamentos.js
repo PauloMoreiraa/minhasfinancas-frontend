@@ -157,8 +157,11 @@ class CadastroLancamentos extends React.Component {
     }
 
     handleSelectLocation = (latitude, longitude) => {
-        this.setState({ latitude, longitude });
+        const latitudeFormatada = parseFloat(latitude).toFixed(6);
+        const longitudeFormatada = parseFloat(longitude).toFixed(6);
+        this.setState({ latitude: latitudeFormatada, longitude: longitudeFormatada });
     }
+    
 
     render() {
         const tipos = this.service.obterListaTipos();
