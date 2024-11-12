@@ -76,9 +76,10 @@ class CadastroLancamentos extends React.Component {
 
     formatarValor = (valor) => {
         if (!valor) return '';
-
+    
         const valorFloat = parseFloat(valor) / 100;
-        return `R$ ${valorFloat.toFixed(2).replace('.', ',')}`;
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' })
+            .format(valorFloat);
     }
 
     submit = () => {
